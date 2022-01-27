@@ -8,7 +8,7 @@ namespace Back_End.Controllers
     [HttpPost]
     public IActionResult FeverCheck(double temperature, string scale)
     {
-      string[] viewData = DoctorModel.FeverCheck(temperature, scale);
+      string[] viewData = Doctor.FeverCheck(temperature, scale);
       ViewBag.FeverCheckMessage = viewData[0];
       ViewBag.FeverCheckColor = viewData[1];
 
@@ -17,9 +17,6 @@ namespace Back_End.Controllers
 
     public IActionResult FeverCheck()
     {
-      //if (ViewData.ContainsKey("FeverCheck"))
-      //  ViewData.Remove("FeverCheck");
-
       return View();
     }
   }
