@@ -5,4 +5,10 @@
     <RootNamespace>Back_End</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+    <Folder Include="wwwroot\img\" />
+    <Folder Include="wwwroot\lib\" />
+  </ItemGroup>
+
 </Project>
