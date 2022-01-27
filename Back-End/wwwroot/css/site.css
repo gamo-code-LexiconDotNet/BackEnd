@@ -6,3 +6,9 @@
   border-radius: 1.5rem !important;
 }
 
+.input-group > .form-temperature-entity {
+  position: relative;
+  flex: 0 1 auto;
+  width: auto;
+  min-width: auto;
+}
