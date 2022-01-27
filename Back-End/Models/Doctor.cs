@@ -1,6 +1,6 @@
 ﻿namespace Back_End.Models
 {
-  public class DoctorModel
+  public class Doctor
   {
     private static double FahrenheitToCelcius(double temperature)
     {

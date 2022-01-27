@@ -1,12 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Back_End
 {
@@ -15,6 +10,9 @@ namespace Back_End
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddControllersWithViews();
+
+      services.AddHttpContextAccessor();
+      services.AddSession();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -25,6 +23,8 @@ namespace Back_End
       }
 
       app.UseStaticFiles();
+
+      app.UseSession();
 
       app.UseRouting();
 
@@ -38,6 +38,11 @@ namespace Back_End
           name: "FeverCheck",
           pattern: "FeverCheck",
           defaults: new { controller = "Doctor", action = "FeverCheck" });
+
+        endpoints.MapControllerRoute(
+          name: "GuessingGame",
+          pattern: "GuessingGame",
+          defaults: new { controller = "GuessingGame", action = "index" });
       });
     }
   }

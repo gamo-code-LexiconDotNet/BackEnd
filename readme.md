@@ -14,5 +14,11 @@ Specification: [MVC Basics, Assignment 2 - Inputs.pdf](MVC%20Basics,%20Assignmen
 
 Branch: [assignment-2](https://github.com/gamo-code-LexiconDotNet/Backend/tree/assignment-2)
 
+#### Assignment 3 - Sessons and Cookies
+
+Specification: [MVC Basics, Assignment 3 - Sessions and Cookies.pdf](MVC%20Basics,%20Assignment%203%20-%20Sessions%20and%20Cookies.pdf)
+
+Branch: [assignment-3](https://github.com/gamo-code-LexiconDotNet/Backend/tree/assignment-3)
+
 ---
 Lexicon C#/.NET Programming Course

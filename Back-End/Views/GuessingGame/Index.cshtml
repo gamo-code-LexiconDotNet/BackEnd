@@ -1,0 +1,74 @@
+﻿@using Back_End.ViewModels
+@model GuessingGameViewModel
+
+@{ 
+string alertType = (Model.Tries == 0 ? "alert-primary" : "alert-warning");
+}
+
+<div class="container">
+  
+  <div class="d-flex justify-content-center">
+    <span class="display-6 mb-5">Guessing Game</span>
+  </div>
+
+  @if (Model.Win)
+  {
+    <div class="d-flex justify-content-center">
+      <div class="alert alert-success w-auto d-flex flex-column">
+        <span class="display-6 mb-3">@Model.Message</span>
+        <a asp-route="GuessingGame" class="btn btn-outline-primary">Play again</a>
+      </div>
+    </div>
+  }
+  else
+  {
+    <div class="d-flex justify-content-center pb-3">
+      <div class="alert @alertType w-auto d-flex justify-content-center">
+        @Model.Message
+      </div>
+    </div>
+
+    <form asp-route="GuessingGame" method="post">
+      <input type="hidden" name="guessedHidden" value="@Model.GuessedHidden" />
+      <input type="hidden" name="tries" value="@Model.Tries" />
+
+      <div class="input-group justify-content-center">
+        <input name="guess" type="number" step="1" class="form-temperature-entity form-control" autofocus>
+        <button typeof="submit" class="btn btn-outline-primary">Guess</button>
+      </div>
+    </form>
+  }
+
+  <div class="d-flex justify-content-center">
+  <div class="flex-column">
+    
+    @if (Model.Guessed.Count > 0)
+    {
+      <div class="m-2">
+        <span>Guesses: </span>
+        @foreach (int guess in Model.Guessed)
+        {
+          <span class="badge bg-info p-2">@guess</span>
+        }
+      </div>
+    }
+
+    @if (Model.Tries > 0)
+    {
+      <div class="m-2">
+        <span>Tries so far: @Model.Tries</span>
+      </div>
+    }
+
+    @if (Model.HighScore > 0)
+    {
+      <div class="m-2">
+        <span>Highscore: </span>
+        <span class="badge rounded-pill bg-primary py-1 px-2">@Model.HighScore</span>
+      </div>
+    }
+
+  </div>
+  </div>
+
+</div>

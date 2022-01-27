@@ -12,3 +12,7 @@
   width: auto;
   min-width: auto;
 }
+
+.w-30 {
+  width: 30% !important;
+}
