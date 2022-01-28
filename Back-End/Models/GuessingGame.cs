@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Back_End.Models
 {
-  public class GuessingGame
+  public class GuessingGame : IGuessingGame
   {
     private readonly Random random = new Random();
     private readonly HttpContext httpContext = new HttpContextAccessor().HttpContext;

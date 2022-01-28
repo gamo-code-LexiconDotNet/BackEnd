@@ -1,3 +1,4 @@
+using Back_End.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,8 @@ namespace Back_End
   {
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddScoped<IGuessingGame, GuessingGame>();
+
       services.AddControllersWithViews();
 
       services.AddHttpContextAccessor();

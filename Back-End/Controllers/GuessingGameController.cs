@@ -10,7 +10,12 @@ namespace Back_End.Controllers
 {
   public class GuessingGameController : Controller
   {
-    private readonly GuessingGame guessingGame = new GuessingGame();
+    private readonly IGuessingGame guessingGame;
+
+    public GuessingGameController(IGuessingGame guessingGame)
+    {
+      this.guessingGame = guessingGame;
+    }
 
     public IActionResult Index()
     {
