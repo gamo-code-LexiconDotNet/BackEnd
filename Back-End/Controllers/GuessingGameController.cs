@@ -1,10 +1,7 @@
 ﻿using Back_End.Models;
 using Back_End.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Text.Json;
 
 namespace Back_End.Controllers
 {
@@ -17,6 +14,7 @@ namespace Back_End.Controllers
       this.guessingGame = guessingGame;
     }
 
+    [HttpGet]
     public IActionResult Index()
     {
       guessingGame.SetupPlay();
@@ -24,7 +22,6 @@ namespace Back_End.Controllers
       return View(new GuessingGameViewModel
       {
         Guessed = new List<int>(),
-        GuessedHidden = JsonSerializer.Serialize(new List<int>()),
         HighScore = guessingGame.HighScore,
         Tries = 0,
         Message = "Guess a number between 1 and 100",
@@ -33,14 +30,13 @@ namespace Back_End.Controllers
     }
 
     [HttpPost]
-    public IActionResult Index(int guess, string guessedHidden, int tries)
+    public IActionResult Index(int guess)
     {
-      guessingGame.PlayRound(guess, guessedHidden, tries);
+      guessingGame.PlayRound(guess);
 
       return View(new GuessingGameViewModel
       {
-        Guessed = guessingGame.Guessed,
-        GuessedHidden = guessingGame.GuessedHidden,
+        Guessed = guessingGame.GuessedNumbers,
         HighScore = guessingGame.HighScore,
         Tries = guessingGame.Tries,
         Message = guessingGame.Message,

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Text.Json;
@@ -13,8 +12,7 @@ namespace Back_End.Models
 
     public int HiddenNumber { get; set; }
     public int HighScore { get; set; }
-    public string GuessedHidden { get; set; }
-    public List<int> Guessed { get; set; }
+    public List<int> GuessedNumbers { get; set; }
     public int Tries { get; set; }
     public string Message { get; set; }
     public bool Win { get; set; }
@@ -24,6 +22,22 @@ namespace Back_End.Models
     {
       get => httpContext.Session.GetInt32("GuessingGameHiddenNumber") ?? -1;
       set => httpContext.Session.SetInt32("GuessingGameHiddenNumber", value);
+    }
+
+    public int TriesInSession
+    {
+      get => httpContext.Session.GetInt32("GuessingGameTries") ?? 0;
+      set => httpContext.Session.SetInt32("GuessingGameTries", value);
+    }
+
+    public List<int> GuessedNumbersInSession
+    {
+      get
+      {
+        var numbers = httpContext.Session.Get("GuessingGameGuessedNumbers");
+        return numbers == null ? new List<int>() : JsonSerializer.Deserialize<List<int>>(numbers);
+      }
+      set => httpContext.Session.SetString("GuessingGameGuessedNumbers", JsonSerializer.Serialize(value));
     }
 
     public int HighScoreInCookie
@@ -40,23 +54,27 @@ namespace Back_End.Models
     public void SetupPlay()
     {
       HiddenNumberInSession = random.Next(1, 101);
-      Guessed = new List<int>();
-      GuessedHidden = JsonSerializer.Serialize(new List<int>());
-      HighScore = HighScoreInCookie;
       Tries = 0;
+      TriesInSession = Tries;
+      GuessedNumbers = new List<int>();
+      GuessedNumbersInSession = GuessedNumbers;
+      HighScore = HighScoreInCookie;
       Message = "Guess a number between 1 and 100";
       Win = false;
     }
 
-    public void PlayRound(int guess, string guessedHidden, int tries)
+    public void PlayRound(int guess)
     {
-      Guessed = JsonSerializer.Deserialize<List<int>>(guessedHidden);
+      GuessedNumbers = GuessedNumbersInSession;
       HiddenNumber = HiddenNumberInSession;
       HighScore = HighScoreInCookie;
+      Tries = TriesInSession;
       Win = false;
 
-      if (!Guessed.Contains(guess))
+      if (!GuessedNumbers.Contains(guess))
       {
+        Tries++;
+
         if (guess > HiddenNumber)
         {
           Message = "Your guess is too big";
@@ -69,17 +87,18 @@ namespace Back_End.Models
         {
           Win = true;
 
-          if (HighScore > (tries + 1) || HighScore == 0)
+          if (HighScore > Tries || HighScore == 0)
           {
-            HighScoreInCookie = HighScore = tries + 1;
+            HighScoreInCookie = HighScore = Tries;
             Message = "You guessed it and got a new highscore!";
           }
           else
             Message = "You guessed it!";
         }
 
-        Tries = tries + 1;
-        Guessed.Add(guess);
+        TriesInSession = Tries;
+        GuessedNumbers.Add(guess);
+        GuessedNumbersInSession = GuessedNumbers;
       }
       else
       {
@@ -87,11 +106,7 @@ namespace Back_End.Models
           Message = $"You already tried {guess} (too big)";
         else
           Message = $"You already tried {guess} (too small)";
-
-        Tries = tries;
       }
-
-      GuessedHidden = JsonSerializer.Serialize(Guessed);
     }
   }
 }

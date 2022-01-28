@@ -29,9 +29,6 @@ string alertType = (Model.Tries == 0 ? "alert-primary" : "alert-warning");
     </div>
 
     <form asp-route="GuessingGame" method="post">
-      <input type="hidden" name="guessedHidden" value="@Model.GuessedHidden" />
-      <input type="hidden" name="tries" value="@Model.Tries" />
-
       <div class="input-group justify-content-center">
         <input name="guess" type="number" step="1" class="form-temperature-entity form-control" autofocus>
         <button typeof="submit" class="btn btn-outline-primary">Guess</button>
