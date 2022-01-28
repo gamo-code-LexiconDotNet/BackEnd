@@ -34,10 +34,6 @@ namespace Back_End
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllerRoute(
-          name: "default",
-          pattern: "{controller=Home}/{action=Index}/{id?}");
-
-        endpoints.MapControllerRoute(
           name: "FeverCheck",
           pattern: "FeverCheck",
           defaults: new { controller = "Doctor", action = "FeverCheck" });
@@ -46,6 +42,10 @@ namespace Back_End
           name: "GuessingGame",
           pattern: "GuessingGame",
           defaults: new { controller = "GuessingGame", action = "index" });
+        
+        endpoints.MapControllerRoute(
+          name: "default",
+          pattern: "{controller=Home}/{action=Index}/{id?}");
       });
     }
   }
