@@ -1,3 +1,4 @@
+using Back_End.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +10,8 @@ namespace Back_End
   {
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddScoped<IGuessingGame, GuessingGame>();
+
       services.AddControllersWithViews();
 
       services.AddHttpContextAccessor();
@@ -31,10 +34,6 @@ namespace Back_End
       app.UseEndpoints(endpoints =>
       {
         endpoints.MapControllerRoute(
-          name: "default",
-          pattern: "{controller=Home}/{action=Index}/{id?}");
-
-        endpoints.MapControllerRoute(
           name: "FeverCheck",
           pattern: "FeverCheck",
           defaults: new { controller = "Doctor", action = "FeverCheck" });
@@ -43,6 +42,10 @@ namespace Back_End
           name: "GuessingGame",
           pattern: "GuessingGame",
           defaults: new { controller = "GuessingGame", action = "index" });
+        
+        endpoints.MapControllerRoute(
+          name: "default",
+          pattern: "{controller=Home}/{action=Index}/{id?}");
       });
     }
   }
