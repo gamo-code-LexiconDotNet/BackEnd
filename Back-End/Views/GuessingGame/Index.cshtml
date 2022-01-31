@@ -2,7 +2,8 @@
 @model GuessingGameViewModel
 
 @{ 
-string alertType = (Model.Tries == 0 ? "alert-primary" : "alert-warning");
+  string alertType = (Model.Tries == 0 ? "alert-primary" : "alert-warning");
+  ViewBag.Title = "Guassing Game"; 
 }
 
 <div class="container">
