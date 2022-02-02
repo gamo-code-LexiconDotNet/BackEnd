@@ -11,6 +11,7 @@ namespace Back_End
     public void ConfigureServices(IServiceCollection services)
     {
       services.AddScoped<IGuessingGame, GuessingGame>();
+      services.AddSingleton<IPersonRepository, InMemoryPersonRepository>();
 
       services.AddControllersWithViews();
 

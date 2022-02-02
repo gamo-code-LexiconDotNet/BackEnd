@@ -16,3 +16,13 @@
 .w-30 {
   width: 30% !important;
 }
+
+.link-sort {
+  color: #212529 !important;
+  text-decoration-style: dotted !important;
+}
+
+.link-sort:hover {
+  color: #212529 !important;
+  text-decoration-style: solid !important;
+}

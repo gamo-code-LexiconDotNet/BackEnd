@@ -1,0 +1,67 @@
+﻿@using Back_End.ViewModels
+@model PersonViewModel
+
+<form asp-controller="Person" asp-action="Search" method="get">
+  <div class="input-group mb-3">
+    <input asp-for="SearchTerm" class="form-control" placeholder="Search" />
+    <div class="input-group-text">
+      <span class="pe-2 text-secondary fst-italic">Aa</span>
+      <input asp-for="CaseSensitive" class="form-check-input" />
+    </div>
+    <button type="submit" class="btn btn-secondary">Search</button>
+  </div>
+</form>
+
+<table class="table">
+  <caption></caption>
+  <thead>
+    <tr>
+      <th scope="col">
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" class="link-sort">Name</a>
+      </th>
+      <th scope="col">
+        Phone
+      </th>
+      <th scope="col">
+        <a asp-action="Index" asp-route-sortOrder="@ViewData["CitySortParm"]" class="link-sort">City</a>
+      </th>
+      <th scope="col">
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (var person in Model.People)
+    {
+      <tr>
+        <td>@person.Name</td>
+        <td>@person.PhoneNumber</td>
+        <td>@person.City</td>
+        <td></td>
+      </tr>
+    }
+  </tbody>
+  <tfoot>
+    <form asp-controller="Person" asp-action="Create">
+        <tr>
+        <td class="align-text-top">
+          <input asp-for="Name" class="form-control" placeholder="Name" />
+          <span asp-validation-for="Name" class="text-danger fs-8"></span>
+        </td>
+        <td class="align-text-top">
+          <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
+          <span asp-validation-for="PhoneNumber" class="text-danger fs-8"></span>
+        </td>
+        <td class="align-text-top">
+          <input asp-for="City" class="form-control" placeholder="City" />
+          <span asp-validation-for="City" class="text-danger fs-8"></span>
+        </td>
+        <td class="align-text-top">
+          <button type="submit" class="btn btn-secondary">Add</button>
+        </td>
+      </tr>
+    </form>
+  </tfoot>
+</table>
+
+
+

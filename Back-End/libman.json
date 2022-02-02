@@ -9,6 +9,10 @@
         "js/bootstrap.min.js",
         "css/bootstrap.min.css"
       ]
+    },
+    {
+      "library": "bootstrap-icons@1.7.2",
+      "destination": "wwwroot/lib/bootstrap-icons/"
     }
   ]
 }
