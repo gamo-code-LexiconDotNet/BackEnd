@@ -26,3 +26,18 @@
   color: #212529 !important;
   text-decoration-style: solid !important;
 }
+
+.person-table > * > * {
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.person-table > :first-child {
+  border-bottom: 2px solid #212529;
+  border-top: 2px solid #212529;
+  font-weight: 700;
+}
+
+.person-table > :last-child {
+  border-bottom: 2px solid #212529;
+}   

@@ -26,5 +26,11 @@ Specification: [MVC Data, Assignment 1 - View Models.pdf](MVC%20Data,%20Assignme
 
 Branch: [data-assignment-1](https://github.com/gamo-code-LexiconDotNet/Backend/tree/data-assignment-1)
 
+#### Data Assignment 2 - Partials Views
+
+Specification: [MVC Data, Assignment 2 - Partial Views.pdf](MVC%20Data,%20Assignment%202%20-%20Partial%20Views.pdf)
+
+Branch: [data-assignment-2](https://github.com/gamo-code-LexiconDotNet/Backend/tree/data-assignment-2)
+
 ---
 Lexicon C#/.NET Programming Course
