@@ -1,0 +1,30 @@
+﻿@{
+  ViewBag.Title = "AJAX"; 
+}
+
+<div class="container">
+  <div class="row justify-content-end mb-3">
+    <div class="col-3 d-inline-flex">
+      <button id="people" class="btn btn-secondary me-3" type="button">People</button>
+      <div class="input-group">
+        <input id="id" type="text" class="form-control" placeholder="Id">
+        <button id="details" class="btn btn-secondary" style="border-right: 2px solid #ced4da;" type="button">Details</button>
+        <button id="delete" class="btn btn-secondary" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+  
+    <div class="container person-table-ajax">
+      <div class="row">
+        <div class="col">Name</div>
+        <div class="col">Phone</div>
+        <div class="col">City</div>
+      </div>
+      <div class="row">
+        <div id="content" class="col">
+          <div class="row p-2">Use controls to access people.</div>
+        </div>
+      </div>
+    </div>
+
+</div>
