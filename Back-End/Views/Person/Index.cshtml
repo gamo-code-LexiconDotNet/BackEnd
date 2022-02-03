@@ -1,6 +1,10 @@
 ﻿@using Back_End.ViewModels
 @model PersonViewModel
 
+@{
+  ViewBag.Title = "Person"; 
+}
+
 <form asp-controller="Person" asp-action="Search" method="get">
   <div class="input-group mb-3">
     <input asp-for="SearchTerm" class="form-control" placeholder="Search" />

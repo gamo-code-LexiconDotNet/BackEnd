@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Person>
+
+@foreach (var person in Model)
+{
+  <partial name="_PersonPartialView" model="person" />
+}

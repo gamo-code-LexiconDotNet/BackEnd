@@ -81,5 +81,20 @@ namespace Back_End.Models
         default: return people.OrderBy(p => p.Name); ;
       }
     }
+
+    public bool Delete(int id)
+    {
+      Person person = GetById(id);
+
+      if (person == null)
+        return false;
+
+      return people.Remove(person);
+    }
+
+    public Person GetById(int id)
+    {
+      return people.SingleOrDefault(p => p.Id == id);
+    }
   }
 }

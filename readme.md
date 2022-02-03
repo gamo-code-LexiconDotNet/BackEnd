@@ -32,5 +32,11 @@ Specification: [MVC Data, Assignment 2 - Partial Views.pdf](MVC%20Data,%20Assign
 
 Branch: [data-assignment-2](https://github.com/gamo-code-LexiconDotNet/Backend/tree/data-assignment-2)
 
+#### Data Assignment 3 - AJAX
+
+Specification: [MVC Data, Assignment 3 - AJAX.pdf](MVC%20Data,%20Assignment%203%20-%20AJAX.pdf)
+
+Branch: [data-assignment-3](https://github.com/gamo-code-LexiconDotNet/Backend/tree/data-assignment-3)
+
 ---
 Lexicon C#/.NET Programming Course
