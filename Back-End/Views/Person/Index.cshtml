@@ -5,7 +5,7 @@
   ViewBag.Title = "Person"; 
 }
 
-<form asp-controller="Person" asp-action="Search" method="get">
+<form asp-controller="Person" asp-action="Index" method="post">
   <div class="input-group mb-3">
     <input asp-for="SearchTerm" class="form-control" placeholder="Search" />
     <div class="input-group-text">
@@ -19,11 +19,27 @@
 <div class="container person-table mb-3">
 
   <div class="row">
-    <div class="col"><a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" class="link-sort">Name</a></div>
+    <div class="col">
+      <form asp-controller="Person" asp-action="Index" method="post">
+        <input hidden asp-for="NameSortParam" />
+        <input hidden asp-for="SearchTerm" />
+        <input hidden asp-for="CaseSensitive" />
+        <button type="submit" class="button-sort">Name</button>
+      </form>
+    </div>
+
     <div class="col">Phone</div>
-    <div class="col"><a asp-action="Index" asp-route-sortOrder="@ViewData["CitySortParm"]" class="link-sort">City</a></div>
+
+    <div class="col">
+      <form asp-controller="Person" asp-action="Index" method="post">
+        <input hidden asp-for="CitySortParam" />
+        <input hidden asp-for="SearchTerm" />
+        <input hidden asp-for="CaseSensitive" />
+        <button type="submit" class="button-sort">City</button>
+      </form>
+    </div>
   </div>
-  
+
   @foreach (var person in Model.People)
   {
     <partial name="_PersonPartialView" model="@person" />
@@ -34,16 +50,16 @@
 <form asp-controller="Person" asp-action="Create">
   <div class="row">
     <div class="col align-text-top">
-      <input asp-for="Name" class="form-control" placeholder="Name" />
-      <span asp-validation-for="Name" class="text-danger fs-8"></span>
+      <input asp-for="personCreateViewModel.Name" class="form-control" placeholder="Name" />
+      <span asp-validation-for="personCreateViewModel.Name" class="text-danger fs-8"></span>
     </div>
     <div class="col align-text-top">
-      <input asp-for="PhoneNumber" class="form-control" placeholder="Phone Number" />
-      <span asp-validation-for="PhoneNumber" class="text-danger fs-8"></span>
+      <input asp-for="personCreateViewModel.PhoneNumber" class="form-control" placeholder="Phone Number" />
+      <span asp-validation-for="personCreateViewModel.PhoneNumber" class="text-danger fs-8"></span>
     </div>
     <div class="col align-text-top">
-      <input asp-for="City" class="form-control" placeholder="City" />
-      <span asp-validation-for="City" class="text-danger fs-8"></span>
+      <input asp-for="personCreateViewModel.City" class="form-control" placeholder="City" />
+      <span asp-validation-for="personCreateViewModel.City" class="text-danger fs-8"></span>
     </div>
     <div class="col-1 align-text-top">
       <button type="submit" class="btn btn-secondary">Add</button>

@@ -1,15 +1,13 @@
 ﻿using Back_End.Models;
 using Back_End.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
+using static Back_End.Models.PersonSession;
 
 namespace Back_End.Controllers
 {
   public class PersonController : Controller
   {
     private readonly IPersonRepository personRepository;
-    private static ModelStateDictionary ModelStateDictionary { get; set; } = null;
 
     public PersonController(IPersonRepository personRepository)
     {
@@ -17,51 +15,76 @@ namespace Back_End.Controllers
     }
 
     [HttpGet]
-    public IActionResult Index(string sortOrder)
+    public IActionResult Index()
     {
-      if (PersonController.ModelStateDictionary != null)
-        ModelState.Merge(PersonController.ModelStateDictionary);
+      return View(new PersonViewModel
+      {
+        People = personRepository.SearchAndOrder(null, false, null),
+        NameSortParam = "name_desc",
+        CitySortParam = "city_desc"
+      });
+    }
 
-      ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-      ViewData["CitySortParm"] = sortOrder == "City" ? "city_desc" : "City";
+    [HttpPost]
+    public IActionResult Index(PersonViewModel personViewModel)
+    {
+      if (personViewModel.NameSortParam != null)
+        SortOrderInSesson = personViewModel.NameSortParam;
+      else if (personViewModel.CitySortParam != null)
+        SortOrderInSesson = personViewModel.CitySortParam;
+      else
+        SortOrderInSesson = "";
+
+      NameSortParamInSession = string.IsNullOrEmpty(SortOrderInSesson) ? "name_desc" : "";
+      CitySortParamInSession = SortOrderInSesson == "city" ? "city_desc" : "city";
+
+      // need to reset model state values or the old values will be passed through model binding
+      ModelState.Remove("NameSortParam");
+      ModelState.Remove("CitySortParam");
+
+      SearchTermInSession = personViewModel.SearchTerm ?? "";
+      CaseSensitiveInSession = personViewModel.CaseSensitive;
 
       return View(new PersonViewModel
       {
-        People = personRepository.OrderAllBy(sortOrder),
-        SearchTerm = null,
-        CaseSensitive = false
+        People = personRepository.SearchAndOrder(
+          SearchTermInSession,
+          CaseSensitiveInSession,
+          SortOrderInSesson),
+        SearchTerm = SearchTermInSession,
+        CaseSensitive = CaseSensitiveInSession,
+        NameSortParam = NameSortParamInSession,
+        CitySortParam = CitySortParamInSession,
       });
-      }
+    }
 
     [HttpPost]
-    public IActionResult Create(CreatePersonViewModel createPersonViewModel)
+    public IActionResult Create(PersonCreateViewModel personCreateViewModel)
     {
       if (ModelState.IsValid)
       {
         personRepository.Add(new Person
         {
-          Name = createPersonViewModel.Name,
-          PhoneNumber = createPersonViewModel.PhoneNumber,
-          City = createPersonViewModel.City
+          Name = personCreateViewModel.Name,
+          PhoneNumber = personCreateViewModel.PhoneNumber,
+          City = personCreateViewModel.City
         });
 
-        ModelStateDictionary = null;
+        return RedirectToAction("Index");
       }
-      else
-        ModelStateDictionary = ModelState;
 
-      return RedirectToAction("Index");
-    }
-
-    [HttpGet]
-    public IActionResult Search(string searchTerm, bool caseSensitive)
-    { 
       return View("Index", new PersonViewModel
       {
-        People = personRepository.Search(searchTerm, caseSensitive),
-        SearchTerm = searchTerm,
-        CaseSensitive = caseSensitive
+        People = personRepository.SearchAndOrder(
+          SearchTermInSession,
+          CaseSensitiveInSession,
+          SortOrderInSesson),
+        SearchTerm = SearchTermInSession,
+        CaseSensitive = CaseSensitiveInSession,
+        NameSortParam = NameSortParamInSession,
+        CitySortParam = CitySortParamInSession,
+        personCreateViewModel = personCreateViewModel
       });
-      }
+    }
   }
 }
