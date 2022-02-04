@@ -17,15 +17,20 @@
   width: 30% !important;
 }
 
-.link-sort {
+.button-sort {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
   color: #212529 !important;
-  text-decoration-style: dotted !important;
+  border-bottom: 1px dashed #212529 !important;
+  cursor: pointer !important;
+  font-weight: 700 !important;
 }
 
-.link-sort:hover {
-  color: #212529 !important;
-  text-decoration-style: solid !important;
-}
+  .button-sort:hover {
+    color: #212529 !important;
+    border-bottom: 1px solid #212529 !important;
+  }
 
 .person-table > * > * {
   padding: 0.5rem 0.5rem;

@@ -3,8 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Back_End.ViewModels
 {
-  public class CreatePersonViewModel
+  public class PersonCreateViewModel
   {
+    public PersonCreateViewModel() { }
+
     [Required(ErrorMessage = "Name is required.")]
     [StringLength(48)]
     public string Name { get; set; }

@@ -14,7 +14,7 @@
 
   // details
   $("#details").click(function () {
-    $.post("/Ajax/Details?id=" + $("#id").val(), function (data, response) {
+    $.post("/Ajax/Details", { id: $("#id").val() }, function (data, response) {
       if (response == "success")
         $("#content").html(data);
       console.log(data, response);
@@ -26,9 +26,9 @@
   // delete
   $("#delete").click(function () {
     let id = $("#id").val();
-    $.post("/Ajax/Delete?id=" + $("#id").val(), function (data, response) {
+    $.post("/Ajax/Delete", { id: $("#id").val() }, function (data, response) {
       if (response == "success")
-        $("#content").html(data);
+        $("#content").html("<div class=\"row p-2\">Person deleted.</div>");
       console.log(data, response);
 
     }).catch(function () {

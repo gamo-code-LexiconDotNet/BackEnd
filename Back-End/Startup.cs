@@ -16,6 +16,7 @@ namespace Back_End
       services.AddControllersWithViews();
 
       services.AddHttpContextAccessor();
+      services.AddMemoryCache();
       services.AddSession();
     }
 
