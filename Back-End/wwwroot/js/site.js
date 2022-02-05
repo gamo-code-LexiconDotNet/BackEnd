@@ -5,8 +5,6 @@
     $.get("/Ajax/People", function (data, response) {
       if (response == "success")
         $("#content").html(data);
-
-      console.log(data, response);
     }).catch(function () {
       $("#content").html("<div class=\"row\">No persons to display.</div>");
     });
@@ -17,7 +15,6 @@
     $.post("/Ajax/Details", { id: $("#id").val() }, function (data, response) {
       if (response == "success")
         $("#content").html(data);
-      console.log(data, response);
     }).catch(function () {
       $("#content").html("<div class=\"row p-2\">Could not find person with that id.</div>");;
     });
@@ -29,11 +26,8 @@
     $.post("/Ajax/Delete", { id: $("#id").val() }, function (data, response) {
       if (response == "success")
         $("#content").html("<div class=\"row p-2\">Person deleted.</div>");
-      console.log(data, response);
-
     }).catch(function () {
       $("#content").html("<div class=\"row p-2\">Could not delete person with that id.</div>");
-      console.log("404");
     });
   });
 

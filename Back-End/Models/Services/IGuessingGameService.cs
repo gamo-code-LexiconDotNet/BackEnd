@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 
-namespace Back_End.ViewModels
+namespace Back_End.Models.Services
 {
-  public class GuessingGameViewModel
+  public interface IGuessingGameService
   {
-    public List<int> Guessed { get; set; }
+    public void SetupPlay();
+    public void PlayRound(int guess);
+    public List<int> GuessedNumbers { get; set; }
     public int HighScore { get; set; }
     public int Tries { get; set; }
     public string Message { get; set; }

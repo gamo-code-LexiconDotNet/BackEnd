@@ -1,17 +1,18 @@
-﻿using Back_End.Models;
-using Back_End.ViewModels;
+﻿using Back_End.Models.Entities;
+using Back_End.Models.Services;
+using Back_End.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using static Back_End.Models.PersonSession;
+using static Back_End.Models.Services.PersonSessionService;
 
 namespace Back_End.Controllers
 {
   public class PersonController : Controller
   {
-    private readonly IPersonRepository personRepository;
+    private readonly IPersonService personService;
 
-    public PersonController(IPersonRepository personRepository)
+    public PersonController(IPersonService personService)
     {
-      this.personRepository = personRepository;
+      this.personService = personService;
     }
 
     [HttpGet]
@@ -19,7 +20,7 @@ namespace Back_End.Controllers
     {
       return View(new PersonViewModel
       {
-        People = personRepository.SearchAndOrder(null, false, null),
+        People = personService.SearchAndOrder(null, false, null),
         NameSortParam = "name_desc",
         CitySortParam = "city_desc"
       });
@@ -47,7 +48,7 @@ namespace Back_End.Controllers
 
       return View(new PersonViewModel
       {
-        People = personRepository.SearchAndOrder(
+        People = personService.SearchAndOrder(
           SearchTermInSession,
           CaseSensitiveInSession,
           SortOrderInSesson),
@@ -63,19 +64,21 @@ namespace Back_End.Controllers
     {
       if (ModelState.IsValid)
       {
-        personRepository.Add(new Person
-        {
-          Name = personCreateViewModel.Name,
-          PhoneNumber = personCreateViewModel.PhoneNumber,
-          City = personCreateViewModel.City
-        });
+        //personService.Add(new Person
+        //{
+        //  Name = personCreateViewModel.Name,
+        //  PhoneNumber = personCreateViewModel.PhoneNumber,
+        //  City = personCreateViewModel.City
+        //});
+
+        personService.Add(personCreateViewModel);
 
         return RedirectToAction("Index");
       }
 
       return View("Index", new PersonViewModel
       {
-        People = personRepository.SearchAndOrder(
+        People = personService.SearchAndOrder(
           SearchTermInSession,
           CaseSensitiveInSession,
           SortOrderInSesson),

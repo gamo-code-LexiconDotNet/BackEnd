@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Text.Json;
 
-namespace Back_End.Models
+namespace Back_End.Models.Services
 {
-  public class GuessingGame : IGuessingGame
+  public class GuessingGameService : IGuessingGameService
   {
     private readonly Random random = new Random();
     private readonly HttpContext httpContext = new HttpContextAccessor().HttpContext;
