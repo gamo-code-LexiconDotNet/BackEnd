@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 
-namespace Back_End.Models
+namespace Back_End.Models.Services
 {
-  public class PersonSession
+  public class PersonSessionService
   {
     private static readonly IHttpContextAccessor httpContextAccessor = new HttpContextAccessor();
     private static ISession Session => httpContextAccessor.HttpContext.Session;

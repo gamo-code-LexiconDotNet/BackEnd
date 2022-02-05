@@ -1,4 +1,4 @@
-﻿using Back_End.Models;
+﻿using Back_End.Models.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Back_End.Controllers
@@ -8,7 +8,7 @@ namespace Back_End.Controllers
     [HttpPost]
     public IActionResult FeverCheck(double temperature, string scale)
     {
-      string[] viewData = Doctor.FeverCheck(temperature, scale);
+      string[] viewData = DoctorService.FeverCheck(temperature, scale);
       ViewBag.FeverCheckMessage = viewData[0];
       ViewBag.FeverCheckColor = viewData[1];
 

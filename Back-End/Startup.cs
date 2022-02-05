@@ -1,4 +1,5 @@
-using Back_End.Models;
+using Back_End.Models.Repositories;
+using Back_End.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,8 +11,9 @@ namespace Back_End
   {
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddScoped<IGuessingGame, GuessingGame>();
+      services.AddScoped<IGuessingGameService, GuessingGameService>();
       services.AddSingleton<IPersonRepository, InMemoryPersonRepository>();
+      services.AddScoped<IPersonService, PersonService>();
 
       services.AddControllersWithViews();
 
@@ -44,7 +46,7 @@ namespace Back_End
           name: "GuessingGame",
           pattern: "GuessingGame",
           defaults: new { controller = "GuessingGame", action = "index" });
-        
+
         endpoints.MapControllerRoute(
           name: "default",
           pattern: "{controller=Home}/{action=Index}/{id?}");

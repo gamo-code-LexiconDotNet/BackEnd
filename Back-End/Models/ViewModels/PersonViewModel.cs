@@ -1,7 +1,7 @@
-﻿using Back_End.Models;
+﻿using Back_End.Models.Entities;
 using System.Collections.Generic;
 
-namespace Back_End.ViewModels
+namespace Back_End.Models.ViewModels
 {
   public class PersonViewModel
   {

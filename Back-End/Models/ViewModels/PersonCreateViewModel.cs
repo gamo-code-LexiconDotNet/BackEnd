@@ -1,7 +1,7 @@
 ﻿using Back_End.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace Back_End.ViewModels
+namespace Back_End.Models.ViewModels
 {
   public class PersonCreateViewModel
   {

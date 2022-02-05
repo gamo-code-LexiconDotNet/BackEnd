@@ -1,5 +1,5 @@
-﻿using Back_End.Models;
-using Back_End.ViewModels;
+﻿using Back_End.Models.Services;
+using Back_End.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -7,9 +7,9 @@ namespace Back_End.Controllers
 {
   public class GuessingGameController : Controller
   {
-    private readonly IGuessingGame guessingGame;
+    private readonly IGuessingGameService guessingGame;
 
-    public GuessingGameController(IGuessingGame guessingGame)
+    public GuessingGameController(IGuessingGameService guessingGame)
     {
       this.guessingGame = guessingGame;
     }
