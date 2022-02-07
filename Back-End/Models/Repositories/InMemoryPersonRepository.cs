@@ -92,56 +92,5 @@ namespace Back_End.Models.Repositories
 
       return people.Remove(personOriginal);
     }
-
-    //public void Add(Person person)
-    //{
-    //  people.Add(person);
-    //  person.Id = people.Max(p => p.Id) + 1;
-    //}
-
-    //public IEnumerable<Person> All()
-    //{
-    //  return people.OrderBy(p => p.Name);
-    //}
-
-    //public bool Delete(int id)
-    //{
-    //  Person person = GetById(id);
-
-    //  if (person == null)
-    //    return false;
-
-    //  return people.Remove(person);
-    //}
-
-    //public Person GetById(int id)
-    //{
-    //  return people.SingleOrDefault(p => p.Id == id);
-    //}
-
-    //public IEnumerable<Person> SearchAndOrder(
-    //  string searchTerm, bool caseSensitive, string sortOrder)
-    //{
-    //  StringComparison stringComparison = StringComparison.CurrentCulture;
-
-    //  if (!caseSensitive)
-    //    stringComparison = StringComparison.CurrentCultureIgnoreCase;
-
-    //  IEnumerable<Person> result = from p in people
-    //         where
-    //           string.IsNullOrEmpty(searchTerm)
-    //           || p.Name.Contains(searchTerm, stringComparison)
-    //           || p.PhoneNumber.Contains(searchTerm, stringComparison)
-    //           || p.City.Contains(searchTerm, stringComparison)
-    //         select p;
-
-    //  switch (sortOrder)
-    //  {
-    //    case "name_desc": return result.OrderByDescending(p => p.Name);
-    //    case "city": return result.OrderBy(p => p.City); ;
-    //    case "city_desc": return result.OrderByDescending(p => p.City);
-    //    default: return result.OrderBy(p => p.Name); ;
-    //  }
-    //}
   }
 }
