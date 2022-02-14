@@ -38,5 +38,11 @@ Specification: [MVC Data, Assignment 3 - AJAX.pdf](MVC%20Data,%20Assignment%203%
 
 Branch: [data-assignment-3](https://github.com/gamo-code-LexiconDotNet/Backend/tree/data-assignment-3)
 
+#### Entity Framework Assignment 1 - Introduction
+
+Specification: [1 - Entity Framework.pdf](1%20-%20Entity%20Framework.pdf)
+
+Branch: [ef-assignment-1](https://github.com/gamo-code-LexiconDotNet/Backend/tree/ef-assignment-1)
+
 ---
 Lexicon C#/.NET Programming Course

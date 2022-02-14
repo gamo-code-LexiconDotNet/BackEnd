@@ -16,7 +16,7 @@ namespace Back_End.Models.Repositories
     /// Returns list of stored People
     /// </summary>
     /// <returns>Returns list of stored People</returns>
-    public List<Person> Read();
+    public IEnumerable<Person> Read();
 
     /// <summary>
     /// Finds the Person in the storage with the provided Id

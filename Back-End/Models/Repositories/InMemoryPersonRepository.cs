@@ -59,7 +59,7 @@ namespace Back_End.Models.Repositories
       return newPerson;
     }
 
-    public List<Person> Read()
+    public IEnumerable<Person> Read()
     {
       return people;
     }

@@ -1,18 +1,32 @@
+using Back_End.Models.Data;
 using Back_End.Models.Repositories;
 using Back_End.Models.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace Back_End
 {
   public class Startup
   {
+    public IConfiguration Configuration { get; }
+
+    public Startup(IConfiguration configuration)
+    {
+      Configuration = configuration;
+    }
+
     public void ConfigureServices(IServiceCollection services)
     {
+      services.AddDbContext<AppDbContext>(options => 
+        options.UseSqlServer(Configuration.GetConnectionString("LexiconDevDatabase")));
+
+      // services.AddSingleton<IPersonRepository, InMemoryPersonRepository>();
+      services.AddScoped<IPersonRepository, PersonRepository>();
       services.AddScoped<IGuessingGameService, GuessingGameService>();
-      services.AddSingleton<IPersonRepository, InMemoryPersonRepository>();
       services.AddScoped<IPersonService, PersonService>();
 
       services.AddControllersWithViews();

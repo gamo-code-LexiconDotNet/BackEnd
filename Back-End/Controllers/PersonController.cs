@@ -13,6 +13,7 @@ namespace Back_End.Controllers
     public PersonController(IPersonService personService)
     {
       this.personService = personService;
+      CaseSensitiveInSession = false;
     }
 
     [HttpGet]
@@ -64,15 +65,7 @@ namespace Back_End.Controllers
     {
       if (ModelState.IsValid)
       {
-        //personService.Add(new Person
-        //{
-        //  Name = personCreateViewModel.Name,
-        //  PhoneNumber = personCreateViewModel.PhoneNumber,
-        //  City = personCreateViewModel.City
-        //});
-
         personService.Add(personCreateViewModel);
-
         return RedirectToAction("Index");
       }
 
