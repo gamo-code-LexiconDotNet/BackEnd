@@ -1,0 +1,56 @@
+﻿@model CityViewModel
+@{
+  ViewBag.Title = "City"; 
+}
+
+<div class="container person-table mb-3">
+
+  <div class="row">
+    <div class="col fw-bold">
+      City name
+    </div>
+    <div class="col fw-bold">
+      Country name
+    </div>
+    <div class="col-1"></div>
+  </div>
+
+  @foreach (var city in Model.Cities)
+  {
+    <div class="row">
+      <div class="col">@city.Name</div>
+      <div class="col">@city.Country.Name</div>
+      <div class="col-1 d-flex justify-content-end">
+        <a class="link-dark" asp-action="Delete" asp-route-id="@city.Id"><i class="bi bi-trash"></i></a>
+      </div>
+    </div>
+  }
+
+</div>
+
+<form asp-controller="City" asp-action="Create">
+  <div class="row">
+
+    <div class="col align-text-top">
+      <input asp-for="cityCreateViewModel.Name" class="form-control" placeholder="City name" />
+      <span asp-validation-for="cityCreateViewModel.Name" class="text-danger fs-8"></span>
+    </div>
+
+    <div class="col align-text-top">
+      <div class="input-group w-100">
+        <input asp-for="cityCreateViewModel.CountryName" class="form-control" placeholder="Country name" />
+        <div class="input-group-append">
+          <select asp-for="cityCreateViewModel.CountryId" asp-items="Model.Countries" class="form-select custom-select"></select>
+        </div>
+      
+        <span asp-validation-for="cityCreateViewModel.CountryName" class="text-danger fs-8"></span>
+        <span asp-validation-for="cityCreateViewModel.CountryId" class="text-danger fs-8"></span>
+      </div>
+    </div>
+
+    <div class="col-1 align-text-top">
+      <button type="submit" class="btn btn-secondary">Add</button>
+    </div>
+
+  </div>
+</form>

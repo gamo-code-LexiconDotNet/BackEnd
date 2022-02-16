@@ -44,5 +44,11 @@ Specification: [1 - Entity Framework.pdf](1%20-%20Entity%20Framework.pdf)
 
 Branch: [ef-assignment-1](https://github.com/gamo-code-LexiconDotNet/Backend/tree/ef-assignment-1)
 
+#### Entity Framework Assignment 2 - Many to One
+
+Specification: [2 - Many to One.pdf](2%20-%20Many%20to%20One.pdf)
+
+Branch: [ef-assignment-2](https://github.com/gamo-code-LexiconDotNet/Backend/tree/ef-assignment-2)
+
 ---
 Lexicon C#/.NET Programming Course

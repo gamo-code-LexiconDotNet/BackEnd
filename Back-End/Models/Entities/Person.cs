@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Back_End.Models.Entities
 {
@@ -15,8 +16,7 @@ namespace Back_End.Models.Entities
     [MaxLength(24)]
     public string PhoneNumber { get; set; }
 
-    [Required]
-    [MaxLength(48)]
-    public string City { get; set; }
+    public int CityId { get; set; }
+    public virtual City City { get; set; }
   }
 }

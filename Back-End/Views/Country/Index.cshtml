@@ -1,0 +1,37 @@
+﻿@model CountryViewModel
+
+@{
+  ViewBag.Title = "Country"; 
+}
+
+<div class="container person-table mb-3">
+
+  <div class="row">
+    <div class="col fw-bold">
+      Country name
+    </div>
+  </div>
+
+  @foreach (var country in Model.Countries)
+  {
+    <div class="row">
+      <div class="col">@country.Name</div>
+      <div class="col-1 d-flex justify-content-end">
+        <a class="link-dark" asp-action="Delete" asp-route-id="@country.Id"><i class="bi bi-trash"></i></a>
+      </div>
+    </div>
+  }
+
+</div>
+
+<form asp-controller="Country" asp-action="Create">
+  <div class="row">
+    <div class="col align-text-top">
+      <input asp-for="countryCreateViewModel.Name" class="form-control" placeholder="Country name" />
+      <span asp-validation-for="countryCreateViewModel.Name" class="text-danger fs-8"></span>
+    </div>
+    <div class="col-1 align-text-top">
+      <button type="submit" class="btn btn-secondary">Add</button>
+    </div>
+  </div>
+</form>

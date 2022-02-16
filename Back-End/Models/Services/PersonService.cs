@@ -29,7 +29,7 @@ namespace Back_End.Models.Services
       {
         Name = personCreateVM.Name,
         PhoneNumber = personCreateVM.PhoneNumber,
-        City = personCreateVM.City
+        City = new City { Name = personCreateVM.City }
       });
     }
 
@@ -61,14 +61,14 @@ namespace Back_End.Models.Services
                                      string.IsNullOrEmpty(searchTerm)
                                      || p.Name.Contains(searchTerm, stringComparison)
                                      || p.PhoneNumber.Contains(searchTerm, stringComparison)
-                                     || p.City.Contains(searchTerm, stringComparison)
+                                     || p.City.Name.Contains(searchTerm, stringComparison)
                                    select p;
 
       switch (sortOrder)
       {
         case "name_desc": return result.OrderByDescending(p => p.Name);
-        case "city": return result.OrderBy(p => p.City); ;
-        case "city_desc": return result.OrderByDescending(p => p.City);
+        case "city": return result.OrderBy(p => p.City.Name); ;
+        case "city_desc": return result.OrderByDescending(p => p.City.Name);
         default: return result.OrderBy(p => p.Name);
       }
     }

@@ -17,7 +17,7 @@ namespace Back_End.Models.Repositories
 
     public Person Create(Person person)
     {
-      var newPerson = appDbContext.Person.Add(new Person
+      var newPerson = appDbContext.People.Add(new Person
       {
         Name = person.Name,
         PhoneNumber = person.PhoneNumber,
@@ -31,7 +31,7 @@ namespace Back_End.Models.Repositories
 
     public bool Delete(int id)
     {
-      var person = appDbContext.Person.Find(id);
+      var person = appDbContext.People.Find(id);
 
       if (person == null)
         return false;
@@ -43,14 +43,17 @@ namespace Back_End.Models.Repositories
 
     public IEnumerable<Person> Read()
     {
-      return from p in appDbContext.Person
-             orderby p.Name
-             select p;
+      //return from p in appDbContext.People
+      //       orderby p.Name
+      //       select p;
+      return appDbContext
+        .People
+        .Include(p => p.City);
     }
 
     public Person Read(int id)
     {
-      return appDbContext.Person.FirstOrDefault(p => p.Id == id);
+      return appDbContext.People.FirstOrDefault(p => p.Id == id);
     }
 
     public Person Update(Person person)

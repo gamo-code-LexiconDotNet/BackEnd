@@ -24,10 +24,14 @@ namespace Back_End
       services.AddDbContext<AppDbContext>(options => 
         options.UseSqlServer(Configuration.GetConnectionString("LexiconDevDatabase")));
 
+      services.AddScoped<IGuessingGameService, GuessingGameService>();
       // services.AddSingleton<IPersonRepository, InMemoryPersonRepository>();
       services.AddScoped<IPersonRepository, PersonRepository>();
-      services.AddScoped<IGuessingGameService, GuessingGameService>();
       services.AddScoped<IPersonService, PersonService>();
+      services.AddScoped<ICityRepository, CityRepository>();
+      services.AddScoped<ICityService, CityService>();
+      services.AddScoped<ICountryRepository, CountryRepository>();
+      services.AddScoped<ICountryService, CountryService>();
 
       services.AddControllersWithViews();
 

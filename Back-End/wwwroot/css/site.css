@@ -65,3 +65,8 @@
 .person-table-ajax > :last-child {
   border-bottom: 2px solid #212529;
 }
+
+.custom-select {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}

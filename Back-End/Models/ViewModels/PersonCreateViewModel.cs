@@ -1,5 +1,4 @@
-﻿using Back_End.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Back_End.Models.ViewModels
 {
