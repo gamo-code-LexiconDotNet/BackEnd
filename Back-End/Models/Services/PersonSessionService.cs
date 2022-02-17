@@ -26,6 +26,12 @@ namespace Back_End.Models.Services
       set => Session.SetString("PersonCitySortParam", value);
     }
 
+    public static string CountrySortParamInSession
+    {
+      get => Session.GetString("CountrySortParam") ?? "country";
+      set => Session.SetString("CountrySortParam", value);
+    }
+
     public static string SearchTermInSession
     {
       get => Session.GetString("PersonSearchTerm") ?? "";

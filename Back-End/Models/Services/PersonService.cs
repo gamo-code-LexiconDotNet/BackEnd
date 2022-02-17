@@ -85,6 +85,7 @@ namespace Back_End.Models.Services
           || p.Name.Contains(searchTerm, stringComparison)
           || p.PhoneNumber.Contains(searchTerm, stringComparison)
           || p.City.Name.Contains(searchTerm, stringComparison)
+          || p.City.Country.Name.Contains(searchTerm, stringComparison)
         select p;
 
       switch (sortOrder)
@@ -92,6 +93,8 @@ namespace Back_End.Models.Services
         case "name_desc": return result.OrderByDescending(p => p.Name);
         case "city": return result.OrderBy(p => p.City.Name); ;
         case "city_desc": return result.OrderByDescending(p => p.City.Name);
+        case "country": return result.OrderBy(p => p.City.Country.Name); ;
+        case "country_desc": return result.OrderByDescending(p => p.City.Country.Name);
         default: return result.OrderBy(p => p.Name);
       }
     }

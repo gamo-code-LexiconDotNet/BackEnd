@@ -1,6 +1,7 @@
 ﻿using Back_End.Models.Services;
 using Back_End.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Back_End.Controllers
 {
@@ -18,18 +19,9 @@ namespace Back_End.Controllers
     {
       return View(new CountryViewModel
       {
-        Countries = countryService.All()
+        Countries = countryService.All(),
       });
     }
-
-    //[HttpPost]
-    //public IActionResult Index(CountryViewModel countryVM)
-    //{
-    //  return View(new CountryViewModel
-    //  {
-    //    Countries = countryService.All()
-    //  });
-    //}
 
     [HttpPost]
     public IActionResult Create(CountryCreateViewModel countryCreateViewModel)

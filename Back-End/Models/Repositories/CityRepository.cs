@@ -27,12 +27,16 @@ namespace Back_End.Models.Repositories
     public IEnumerable<City> Read()
     {
       return appDbContext.Cities
-        .Include(c => c.Country);
+        .Include(c => c.Country)
+        .Include(c => c.People);
     }
 
     public City Read(int id)
     {
-      return appDbContext.Cities.FirstOrDefault(c => c.Id == id);
+      return appDbContext.Cities
+        .Include(c => c.Country)
+        .Include(c => c.People)
+        .FirstOrDefault(c => c.Id == id);
     }
 
     public City Update(City city)

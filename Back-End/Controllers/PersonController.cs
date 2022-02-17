@@ -31,6 +31,7 @@ namespace Back_End.Controllers
         People = personService.SearchAndOrder(null, false, null),
         NameSortParam = "name_desc",
         CitySortParam = "city_desc",
+        CountrySortParam = "coutry_desc",
         Cities = new SelectList(cityService.All(), "Id", "Name"),
         Countries = new SelectList(countryService.All(), "Id", "Name"),
       });
@@ -40,18 +41,27 @@ namespace Back_End.Controllers
     public IActionResult Index(PersonViewModel personViewModel)
     {
       if (personViewModel.NameSortParam != null)
+      {
         SortOrderInSesson = personViewModel.NameSortParam;
+        NameSortParamInSession = SortOrderInSesson == "name" ? "name_desc" : "name";
+      }
       else if (personViewModel.CitySortParam != null)
+      {
         SortOrderInSesson = personViewModel.CitySortParam;
+        CitySortParamInSession = SortOrderInSesson == "city" ? "city_desc" : "city";
+      }
+      else if (personViewModel.CountrySortParam != null)
+      {
+        SortOrderInSesson = personViewModel.CountrySortParam;
+        CountrySortParamInSession = SortOrderInSesson == "country" ? "country_desc" : "country";
+      }
       else
         SortOrderInSesson = "";
-
-      NameSortParamInSession = string.IsNullOrEmpty(SortOrderInSesson) ? "name_desc" : "";
-      CitySortParamInSession = SortOrderInSesson == "city" ? "city_desc" : "city";
 
       // need to reset model state values or the old values will be passed through model binding
       ModelState.Remove("NameSortParam");
       ModelState.Remove("CitySortParam");
+      ModelState.Remove("CountrySortParam");
 
       SearchTermInSession = personViewModel.SearchTerm ?? "";
       CaseSensitiveInSession = personViewModel.CaseSensitive;
@@ -66,6 +76,7 @@ namespace Back_End.Controllers
         CaseSensitive = CaseSensitiveInSession,
         NameSortParam = NameSortParamInSession,
         CitySortParam = CitySortParamInSession,
+        CountrySortParam = CountrySortParamInSession,
         Cities = new SelectList(cityService.All(), "Id", "Name"),
         Countries = new SelectList(countryService.All(), "Id", "Name"),
       });
@@ -90,6 +101,7 @@ namespace Back_End.Controllers
         CaseSensitive = CaseSensitiveInSession,
         NameSortParam = NameSortParamInSession,
         CitySortParam = CitySortParamInSession,
+        CountrySortParam = CountrySortParamInSession,
         Cities = new SelectList(cityService.All(), "Id", "Name"),
         Countries = new SelectList(countryService.All(), "Id", "Name"),
         personCreateViewModel = personCreateViewModel

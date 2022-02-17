@@ -38,7 +38,14 @@
       </form>
     </div>
 
-    <div class="col">Country</div>
+    <div class="col">
+      <form asp-controller="Person" asp-action="Index" method="post">
+        <input hidden asp-for="CountrySortParam" />
+        <input hidden asp-for="SearchTerm" />
+        <input hidden asp-for="CaseSensitive" />
+        <button type="submit" class="button-sort">Country</button>
+      </form>
+    </div>
 
     <div class="col-1"></div>
 
@@ -63,11 +70,6 @@
       <input asp-for="personCreateViewModel.PhoneNumber" class="form-control" placeholder="Phone Number" />
       <span asp-validation-for="personCreateViewModel.PhoneNumber" class="text-danger fs-8"></span>
     </div>
-
-    @*<div class="col align-text-top">
-      <input asp-for="personCreateViewModel.City" class="form-control" placeholder="City" />
-      <span asp-validation-for="personCreateViewModel.City" class="text-danger fs-8"></span>
-    </div>*@
 
     <div class="col align-text-top">
       <div class="input-group w-100">

@@ -7,15 +7,20 @@
 <div class="container person-table mb-3">
 
   <div class="row">
-    <div class="col fw-bold">
+    <div class="col-3 fw-bold">
       Country name
     </div>
+    <div class="col fw-bold">
+      Cities
+    </div>
+    <div class="col-1 fw-bold"></div>
   </div>
 
   @foreach (var country in Model.Countries)
   {
     <div class="row">
-      <div class="col">@country.Name</div>
+      <div class="col-3">@country.Name</div>
+      <div class="col">@string.Join(", ", country.Cities.Select(c => c.Name))</div>
       <div class="col-1 d-flex justify-content-end">
         <a class="link-dark" asp-action="Delete" asp-route-id="@country.Id"><i class="bi bi-trash"></i></a>
       </div>

@@ -10,6 +10,5 @@ namespace Back_End.Models.Services
     IEnumerable<Country> All();
     Country GetById(int id);
     bool Delete(int id);
-
   }
 }

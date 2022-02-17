@@ -13,6 +13,7 @@ namespace Back_End.Models.ViewModels
     public bool CaseSensitive { get; set; } = false;
     public string NameSortParam { get; set; }
     public string CitySortParam { get; set; }
+    public string CountrySortParam { get; set; }
     public SelectList Cities { get; set; }
     public SelectList Countries { get; set; }
 

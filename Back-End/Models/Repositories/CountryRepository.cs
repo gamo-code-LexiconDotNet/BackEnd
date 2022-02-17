@@ -29,12 +29,15 @@ namespace Back_End.Models.Repositories
 
     public IEnumerable<Country> Read()
     {
-      return appDbContext.Countries;
+      return appDbContext.Countries
+        .Include(c => c.Cities);
     }
 
     public Country Read(int id)
     {
-      return appDbContext.Countries.FirstOrDefault(c => c.Id == id);
+      return appDbContext.Countries
+        .Include(c => c.Cities)
+        .FirstOrDefault(c => c.Id == id);
     }
 
     public Country Update(Country country)
@@ -59,14 +62,5 @@ namespace Back_End.Models.Repositories
 
       return true;
     }
-
-    //public bool HasId(int id)
-    //{
-    //  var q = appDbContext.Countries.Where(c => c.Id == id);
-    //  if (q != null)
-    //    return true;
-
-    //  return false;
-    //}
   }
 }
