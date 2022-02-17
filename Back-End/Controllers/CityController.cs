@@ -39,6 +39,7 @@ namespace Back_End.Controllers
       return View("Index", new CityViewModel
       {
         Cities = cityService.All(),
+        Countries = new SelectList(countryService.All(), "Id", "Name"),
         cityCreateViewModel = cityCreateViewModel
       });
     }

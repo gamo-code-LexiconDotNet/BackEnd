@@ -1,4 +1,5 @@
 ﻿using Back_End.Models.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace Back_End.Models.ViewModels
@@ -12,6 +13,9 @@ namespace Back_End.Models.ViewModels
     public bool CaseSensitive { get; set; } = false;
     public string NameSortParam { get; set; }
     public string CitySortParam { get; set; }
+    public SelectList Cities { get; set; }
+    public SelectList Countries { get; set; }
+
 
     public PersonCreateViewModel personCreateViewModel;
   }

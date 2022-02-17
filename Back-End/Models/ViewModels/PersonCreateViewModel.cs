@@ -15,8 +15,18 @@ namespace Back_End.Models.ViewModels
     [RegularExpression(@"(\+\d{2})?[ \-]?(\(\d\))?[ \-]?[0-9\- ]*", ErrorMessage = "Must be a valid phone number")]
     public string PhoneNumber { get; set; }
 
-    [Required(ErrorMessage = "City is required.")]
+    //[Required(ErrorMessage = "City is required.")]
+    //[StringLength(48)]
+    //public string City { get; set; }
+
     [StringLength(48)]
-    public string City { get; set; }
+    public string CityName { get; set; }
+
+    public int CityId { get; set; }
+
+    [StringLength(48)]
+    public string CountryName { get; set; }
+
+    public int CountryId { get; set; }
   }
 }

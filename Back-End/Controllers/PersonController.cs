@@ -2,6 +2,7 @@
 using Back_End.Models.Services;
 using Back_End.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using static Back_End.Models.Services.PersonSessionService;
 
 namespace Back_End.Controllers
@@ -9,10 +10,16 @@ namespace Back_End.Controllers
   public class PersonController : Controller
   {
     private readonly IPersonService personService;
+    private readonly ICityService cityService;
+    private readonly ICountryService countryService;
 
-    public PersonController(IPersonService personService)
+    public PersonController(IPersonService personService,
+      ICityService cityService,
+      ICountryService countryService)
     {
       this.personService = personService;
+      this.cityService = cityService;
+      this.countryService = countryService;
       CaseSensitiveInSession = false;
     }
 
@@ -23,7 +30,9 @@ namespace Back_End.Controllers
       {
         People = personService.SearchAndOrder(null, false, null),
         NameSortParam = "name_desc",
-        CitySortParam = "city_desc"
+        CitySortParam = "city_desc",
+        Cities = new SelectList(cityService.All(), "Id", "Name"),
+        Countries = new SelectList(countryService.All(), "Id", "Name"),
       });
     }
 
@@ -57,6 +66,8 @@ namespace Back_End.Controllers
         CaseSensitive = CaseSensitiveInSession,
         NameSortParam = NameSortParamInSession,
         CitySortParam = CitySortParamInSession,
+        Cities = new SelectList(cityService.All(), "Id", "Name"),
+        Countries = new SelectList(countryService.All(), "Id", "Name"),
       });
     }
 
@@ -79,8 +90,19 @@ namespace Back_End.Controllers
         CaseSensitive = CaseSensitiveInSession,
         NameSortParam = NameSortParamInSession,
         CitySortParam = CitySortParamInSession,
+        Cities = new SelectList(cityService.All(), "Id", "Name"),
+        Countries = new SelectList(countryService.All(), "Id", "Name"),
         personCreateViewModel = personCreateViewModel
       });
+    }
+
+    [HttpGet]
+    public IActionResult Delete(int id)
+    {
+      if (personService.Delete(id))
+        return RedirectToAction("Index");
+
+      return RedirectToAction("Index"); // fix on fail
     }
   }
 }

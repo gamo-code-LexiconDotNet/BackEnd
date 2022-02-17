@@ -17,12 +17,14 @@ namespace Back_End.Models.Repositories
 
     public Person Create(Person person)
     {
-      var newPerson = appDbContext.People.Add(new Person
-      {
-        Name = person.Name,
-        PhoneNumber = person.PhoneNumber,
-        City = person.City
-      });
+      //var newPerson = appDbContext.People.Add(new Person
+      //{
+      //  Name = person.Name,
+      //  PhoneNumber = person.PhoneNumber,
+      //  City = person.City
+      //});
+
+      var newPerson = appDbContext.People.Add(person);
 
       appDbContext.SaveChanges();
 
@@ -46,9 +48,11 @@ namespace Back_End.Models.Repositories
       //return from p in appDbContext.People
       //       orderby p.Name
       //       select p;
+
       return appDbContext
         .People
-        .Include(p => p.City);
+        .Include(p => p.City)
+        .Include(p => p.City.Country);
     }
 
     public Person Read(int id)

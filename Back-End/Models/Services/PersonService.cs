@@ -18,19 +18,41 @@ namespace Back_End.Models.Services
 
     public Person Add(PersonCreateViewModel personCreateVM)
     {
-      if (
-        string.IsNullOrWhiteSpace(personCreateVM.Name)
-        || string.IsNullOrWhiteSpace(personCreateVM.PhoneNumber)
-        || string.IsNullOrWhiteSpace(personCreateVM.City)
-      )
+      if (personCreateVM == null
+        || string.IsNullOrWhiteSpace(personCreateVM.Name)
+        || string.IsNullOrWhiteSpace(personCreateVM.PhoneNumber))
         return null;
 
-      return personRepository.Create(new Person()
+      Person newPerson = new Person
       {
         Name = personCreateVM.Name,
-        PhoneNumber = personCreateVM.PhoneNumber,
-        City = new City { Name = personCreateVM.City }
-      });
+        PhoneNumber = personCreateVM.PhoneNumber
+      };
+
+      if (string.IsNullOrEmpty(personCreateVM.CityName))
+        newPerson.CityId = personCreateVM.CityId;
+      else if (!string.IsNullOrEmpty(personCreateVM.CityName))
+        newPerson.City = new City
+        {
+          Name = personCreateVM.CityName,
+          CountryId = personCreateVM.CountryId
+        };
+      else if (!string.IsNullOrEmpty(personCreateVM.CityName)
+               && !string.IsNullOrEmpty(personCreateVM.CountryName))
+        newPerson.City = new City
+        {
+          Name = personCreateVM.CityName,
+          Country = new Country
+          {
+            Name = personCreateVM.CountryName
+          }
+        };
+      else
+        return null;
+
+      personRepository.Create(newPerson);
+
+      return newPerson;
     }
 
     public IEnumerable<Person> All()
@@ -56,13 +78,14 @@ namespace Back_End.Models.Services
       if (!caseSensitive)
         stringComparison = StringComparison.CurrentCultureIgnoreCase;
 
-      IEnumerable<Person> result = from p in personRepository.Read()
-                                   where
-                                     string.IsNullOrEmpty(searchTerm)
-                                     || p.Name.Contains(searchTerm, stringComparison)
-                                     || p.PhoneNumber.Contains(searchTerm, stringComparison)
-                                     || p.City.Name.Contains(searchTerm, stringComparison)
-                                   select p;
+      IEnumerable<Person> result =
+        from p in personRepository.Read()
+        where
+          string.IsNullOrEmpty(searchTerm)
+          || p.Name.Contains(searchTerm, stringComparison)
+          || p.PhoneNumber.Contains(searchTerm, stringComparison)
+          || p.City.Name.Contains(searchTerm, stringComparison)
+        select p;
 
       switch (sortOrder)
       {

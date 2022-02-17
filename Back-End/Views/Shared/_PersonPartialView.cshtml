@@ -4,4 +4,8 @@
   <div class="col">@Model.Name</div>
   <div class="col">@Model.PhoneNumber</div>
   <div class="col">@Model.City.Name</div>
+  <div class="col">@Model.City.Country.Name</div>
+  <div class="col-1 d-flex justify-content-end">
+        <a class="link-dark" asp-action="Delete" asp-route-id="@Model.Id"><i class="bi bi-trash"></i></a>
+      </div>
 </div>

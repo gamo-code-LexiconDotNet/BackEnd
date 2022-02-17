@@ -37,6 +37,11 @@
         <button type="submit" class="button-sort">City</button>
       </form>
     </div>
+
+    <div class="col">Country</div>
+
+    <div class="col-1"></div>
+
   </div>
 
   @foreach (var person in Model.People)
@@ -48,20 +53,49 @@
 
 <form asp-controller="Person" asp-action="Create">
   <div class="row">
+
     <div class="col align-text-top">
       <input asp-for="personCreateViewModel.Name" class="form-control" placeholder="Name" />
       <span asp-validation-for="personCreateViewModel.Name" class="text-danger fs-8"></span>
     </div>
+
     <div class="col align-text-top">
       <input asp-for="personCreateViewModel.PhoneNumber" class="form-control" placeholder="Phone Number" />
       <span asp-validation-for="personCreateViewModel.PhoneNumber" class="text-danger fs-8"></span>
     </div>
-    <div class="col align-text-top">
+
+    @*<div class="col align-text-top">
       <input asp-for="personCreateViewModel.City" class="form-control" placeholder="City" />
       <span asp-validation-for="personCreateViewModel.City" class="text-danger fs-8"></span>
+    </div>*@
+
+    <div class="col align-text-top">
+      <div class="input-group w-100">
+        <input asp-for="personCreateViewModel.CityName" class="form-control" placeholder="City name" />
+        <div class="input-group-append">
+          <select asp-for="personCreateViewModel.CityId" asp-items="Model.Cities" class="form-select custom-select"></select>
+        </div>
+      
+        <span asp-validation-for="personCreateViewModel.CityName" class="text-danger fs-8"></span>
+        <span asp-validation-for="personCreateViewModel.CityId" class="text-danger fs-8"></span>
+      </div>
     </div>
+
+    <div class="col align-text-top">
+      <div class="input-group w-100">
+        <input asp-for="personCreateViewModel.CountryName" class="form-control" placeholder="Country name" />
+        <div class="input-group-append">
+          <select asp-for="personCreateViewModel.CountryId" asp-items="Model.Countries" class="form-select custom-select"></select>
+        </div>
+      
+        <span asp-validation-for="personCreateViewModel.CountryName" class="text-danger fs-8"></span>
+        <span asp-validation-for="personCreateViewModel.CountryId" class="text-danger fs-8"></span>
+      </div>
+    </div>
+
     <div class="col-1 align-text-top">
       <button type="submit" class="btn btn-secondary">Add</button>
     </div>
+
   </div>
 </form>
