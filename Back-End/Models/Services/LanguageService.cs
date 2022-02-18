@@ -19,6 +19,21 @@ namespace Back_End.Models.Services
     {
       Language language = new Language();
 
+      // 0. Rename Language
+      if (
+        !string.IsNullOrWhiteSpace(languageCreateViewModel.LanguageName)
+        && languageCreateViewModel.LanguageId > 0)
+      {
+        language = languageRepository.Read(languageCreateViewModel.LanguageId);
+
+        if (language == null)
+          return null;
+
+        language.Name = languageCreateViewModel.LanguageName;
+
+        return languageRepository.Update(language);
+      }
+
       // 1. No language
       if (
         string.IsNullOrWhiteSpace(languageCreateViewModel.LanguageName)
