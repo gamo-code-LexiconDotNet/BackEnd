@@ -12,6 +12,10 @@
     <Compile Remove="Migrations\20220215154209_country unique name.Designer.cs" />
     <Compile Remove="Migrations\20220215155253_country unique name.cs" />
     <Compile Remove="Migrations\20220215155253_country unique name.Designer.cs" />
+    <Compile Remove="Migrations\20220217124817_added language and personlanguage.cs" />
+    <Compile Remove="Migrations\20220217124817_added language and personlanguage.Designer.cs" />
+    <Compile Remove="Migrations\20220217130127_added language and personlanguage.cs" />
+    <Compile Remove="Migrations\20220217130127_added language and personlanguage.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

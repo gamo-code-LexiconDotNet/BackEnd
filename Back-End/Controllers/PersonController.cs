@@ -3,6 +3,8 @@ using Back_End.Models.Services;
 using Back_End.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
+using System.Linq;
 using static Back_End.Models.Services.PersonSessionService;
 
 namespace Back_End.Controllers
@@ -12,14 +14,17 @@ namespace Back_End.Controllers
     private readonly IPersonService personService;
     private readonly ICityService cityService;
     private readonly ICountryService countryService;
+    private readonly ILanguageService languageService;
 
     public PersonController(IPersonService personService,
       ICityService cityService,
-      ICountryService countryService)
+      ICountryService countryService,
+      ILanguageService languageService)
     {
       this.personService = personService;
       this.cityService = cityService;
       this.countryService = countryService;
+      this.languageService = languageService;
       CaseSensitiveInSession = false;
     }
 
@@ -32,8 +37,10 @@ namespace Back_End.Controllers
         NameSortParam = "name_desc",
         CitySortParam = "city_desc",
         CountrySortParam = "coutry_desc",
-        Cities = new SelectList(cityService.All(), "Id", "Name"),
-        Countries = new SelectList(countryService.All(), "Id", "Name"),
+        CityList = CityList,
+        CountryList = CountryList,
+        LanguageList = LanguageList,
+        NameList = PersonList,
       });
     }
 
@@ -77,8 +84,9 @@ namespace Back_End.Controllers
         NameSortParam = NameSortParamInSession,
         CitySortParam = CitySortParamInSession,
         CountrySortParam = CountrySortParamInSession,
-        Cities = new SelectList(cityService.All(), "Id", "Name"),
-        Countries = new SelectList(countryService.All(), "Id", "Name"),
+        CityList = CityList,
+        CountryList = CountryList,
+        NameList = PersonList,
       });
     }
 
@@ -102,8 +110,9 @@ namespace Back_End.Controllers
         NameSortParam = NameSortParamInSession,
         CitySortParam = CitySortParamInSession,
         CountrySortParam = CountrySortParamInSession,
-        Cities = new SelectList(cityService.All(), "Id", "Name"),
-        Countries = new SelectList(countryService.All(), "Id", "Name"),
+        CityList = CityList,
+        CountryList = CountryList,
+        NameList = PersonList,
         personCreateViewModel = personCreateViewModel
       });
     }
@@ -115,6 +124,57 @@ namespace Back_End.Controllers
         return RedirectToAction("Index");
 
       return RedirectToAction("Index"); // fix on fail
+    }
+
+    [HttpGet]
+    public IActionResult RemoveLanguage(int lid, int pid)
+    {
+      if (personService.RemoveLanguage(lid, pid))
+        return RedirectToAction("Index");
+
+      return RedirectToAction("Index"); // fix on fail
+    }
+
+    //
+    // select lists
+    //
+    public List<SelectListItem> LanguageList
+    {
+      get
+      {
+        List<SelectListItem> list = new SelectList(languageService.All(), "Id", "Name").ToList();
+        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose language" });
+        return list;
+      }
+    }
+
+    public List<SelectListItem> PersonList
+    {
+      get
+      {
+        List<SelectListItem> list = new SelectList(personService.All(), "Id", "Name").ToList();
+        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose person" });
+        return list;
+      }
+    }
+
+    public List<SelectListItem> CityList
+    {
+      get
+      {
+        List<SelectListItem> list = new SelectList(cityService.All(), "Id", "Name").ToList();
+        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose city" });
+        return list;
+      }
+    }
+    public List<SelectListItem> CountryList
+    {
+      get
+      {
+        List<SelectListItem> list = new SelectList(countryService.All(), "Id", "Name").ToList();
+        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose country" });
+        return list;
+      }
     }
   }
 }

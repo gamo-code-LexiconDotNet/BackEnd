@@ -70,3 +70,14 @@
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
+
+.comma:before {
+  content: ','
+}
+.comma:empty:before,
+.comma:first-of-type:before,
+.comma:first-of-type + .comma:empty:before,
+.comma:empty + .comma:not(:last-of-type):before,
+.comma:empty + .comma:empty:before {
+  content: '';
+}

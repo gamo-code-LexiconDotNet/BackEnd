@@ -42,5 +42,7 @@ namespace Back_End.Models.Services
     /// <returns>Returns list of people filtered by searchTerm and caseSensitive and ordered by sortOrder</returns>
     public IEnumerable<Person> SearchAndOrder(
       string searchTerm, bool caseSensitive, string sortOrder);
+    
+    public bool RemoveLanguage(int lid, int pid);
   }
 }

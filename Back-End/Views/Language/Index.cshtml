@@ -1,0 +1,65 @@
+﻿@model LanguageViewModel
+
+@{
+  ViewBag.Title = "Language";
+}
+
+<div class="container person-table mb-3">
+
+  <div class="row">
+    <div class="col-3 fw-bold">
+      Langauge
+    </div>
+    <div class="col fw-bold">
+      People
+    </div>
+    <div class="col-1 fw-bold"></div>
+  </div>
+
+  @foreach (var language in Model.Languages)
+  {
+    <div class="row">
+      <div class="col-3">@language.Name</div>
+      <div class="col">
+        @foreach (var name in language.PeopleLanguages.Select(pl => pl.Person.Name))
+        {
+          <span class="comma">
+            @name
+              <a class="link-dark" asp-action="RemovePerson" asp-route-lid="@language.Id" asp-route-pid="@language.PeopleLanguages.First().PersonId"><i class="bi bi-trash"></i></a>
+          </span>
+        }
+      </div>
+      <div class="col-1 d-flex justify-content-end">
+        <a class="link-dark" asp-action="Delete" asp-route-id="@language.Id"><i class="bi bi-trash"></i></a>
+      </div>
+    </div>
+  }
+
+</div>
+
+<form asp-controller="Language" asp-action="Create">
+  <div class="row">
+
+    <div class="col align-text-top">
+      <div class="input-group w-100">
+        <input asp-for="languageCreateViewModel.LanguageName" class="form-control" placeholder="Language" />
+        <div class="input-group-append">
+          <select asp-for="languageCreateViewModel.LanguageId" asp-items="Model.LanguageList" class="form-select custom-select"></select>
+        </div>
+      
+        <span asp-validation-for="languageCreateViewModel.LanguageName" class="text-danger fs-8"></span>
+        <span asp-validation-for="languageCreateViewModel.LanguageId" class="text-danger fs-8"></span>
+      </div>
+    </div>
+
+     <div class="col-auto align-text-top">
+      <select asp-for="languageCreateViewModel.PersonId" asp-items="Model.PersonList" class="form-select custom-select"></select>
+      <span asp-validation-for="languageCreateViewModel.PersonId" class="text-danger fs-8"></span>
+    </div>
+    
+    <div class="col-1 align-text-top">
+      <button type="submit" class="btn btn-secondary">Add</button>
+    </div>
+
+  </div>
+</form>

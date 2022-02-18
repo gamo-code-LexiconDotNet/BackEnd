@@ -14,9 +14,10 @@ namespace Back_End.Models.ViewModels
     public string NameSortParam { get; set; }
     public string CitySortParam { get; set; }
     public string CountrySortParam { get; set; }
-    public SelectList Cities { get; set; }
-    public SelectList Countries { get; set; }
-
+    public List<SelectListItem> CityList { get; set; }
+    public List<SelectListItem> CountryList { get; set; }
+    public List<SelectListItem> NameList { get; set; }
+    public List<SelectListItem> LanguageList { get; set; }
 
     public PersonCreateViewModel personCreateViewModel;
   }

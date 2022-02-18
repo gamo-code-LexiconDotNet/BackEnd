@@ -32,6 +32,8 @@ namespace Back_End
       services.AddScoped<ICityService, CityService>();
       services.AddScoped<ICountryRepository, CountryRepository>();
       services.AddScoped<ICountryService, CountryService>();
+      services.AddScoped<ILanguageRepository, LanguageRepository>();
+      services.AddScoped<ILanguageService, LanguageService>();
 
       services.AddControllersWithViews();
 
