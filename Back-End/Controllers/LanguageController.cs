@@ -35,7 +35,7 @@ namespace Back_End.Controllers
       get
       {
         List<SelectListItem> pl = new SelectList(personService.All(), "Id", "Name").ToList();
-        pl.Insert(0, new SelectListItem { Value = "0", Text = "Choose person" });
+        pl.Insert(0, new SelectListItem { Value = "0", Text = "Add person" });
         return pl;
       }
     }

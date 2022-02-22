@@ -21,11 +21,11 @@
     <div class="row">
       <div class="col-3">@language.Name</div>
       <div class="col">
-        @foreach (var name in language.PeopleLanguages.Select(pl => pl.Person.Name))
+        @foreach (var personLanguage in language.PeopleLanguages)
         {
           <span class="comma">
-            @name
-              <a class="link-dark" asp-action="RemovePerson" asp-route-lid="@language.Id" asp-route-pid="@language.PeopleLanguages.First().PersonId"><i class="bi bi-trash"></i></a>
+            @personLanguage.Person.Name
+              <a class="link-dark" asp-action="RemovePerson" asp-route-lid="@personLanguage.LanguageId" asp-route-pid="@personLanguage.PersonId"><i class="bi bi-trash"></i></a>
           </span>
         }
       </div>
