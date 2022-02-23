@@ -1,0 +1,71 @@
+﻿@model RoleViewModel
+
+@{
+  ViewBag.Title = "Role"; 
+}
+
+<div class="container person-table mb-3">
+
+  <div class="row">
+    <div class="col-3 fw-bold">
+      Role
+    </div>
+    <div class="col fw-bold">
+      Users
+    </div>
+    <div class="col-1 fw-bold"></div>
+  </div>
+
+  @foreach (var role in Model.Roles)
+  {
+    <div class="row">
+
+      <div class="col-3">@role.Role</div>
+      
+      <div class="col">
+        @foreach (var user in role.Users)
+        {
+          <span class="comma">
+            @user.UserName
+              <a class="link-dark" asp-action="RemoveUser" asp-route-userId="@user.Id" asp-route-roleName="@role.Role"><i class="bi bi-trash"></i></a>
+          </span>
+        }
+      </div>
+      
+      <div class="col-1 d-flex justify-content-end">
+        <a class="link-dark" asp-action="DeleteRole" asp-route-roleName="@role.Role"><i class="bi bi-trash"></i></a>
+      </div>
+
+    </div>
+  }
+
+</div>
+
+<form asp-controller="Role" asp-action="CreateUpdate">
+  <div class="row">
+
+    <div class="col align-text-top">
+      <div class="input-group w-100">
+        <input asp-for="roleCreateViewModel.NewRoleName" class="form-control" placeholder="Role name" />
+        <div class="input-group-append">
+          <select asp-for="roleCreateViewModel.RoleName" asp-items="Model.RoleList" class="form-select custom-select"></select>
+        </div>
+      
+      </div>
+      <span asp-validation-for="roleCreateViewModel.NewRoleName" class="text-danger fs-8"></span>
+      <span asp-validation-for="roleCreateViewModel.RoleName" class="text-danger fs-8"></span>
+    </div>
+
+    <div class="col align-text-top">
+      <div class="input-group w-100">
+        <select asp-for="roleCreateViewModel.UserId" asp-items="Model.UserList" class="form-select custom-select"></select>
+      </div>
+      <span asp-validation-for="roleCreateViewModel.UserId" class="text-danger fs-8"></span>
+    </div>
+
+    <div class="col-1 align-text-top">
+      <button type="submit" class="btn btn-secondary">Add</button>
+    </div>
+
+  </div>
+</form>

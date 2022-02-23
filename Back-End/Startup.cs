@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 
 namespace Back_End
 {
@@ -34,8 +36,10 @@ namespace Back_End
       services.AddScoped<ICountryService, CountryService>();
       services.AddScoped<ILanguageRepository, LanguageRepository>();
       services.AddScoped<ILanguageService, LanguageService>();
+      services.AddScoped<IRoleService, RoleService>();
 
       services.AddControllersWithViews();
+      services.AddRazorPages();
 
       services.AddHttpContextAccessor();
       services.AddMemoryCache();
@@ -50,10 +54,10 @@ namespace Back_End
       }
 
       app.UseStaticFiles();
-
       app.UseSession();
-
       app.UseRouting();
+      app.UseAuthentication();
+      app.UseAuthorization();
 
       app.UseEndpoints(endpoints =>
       {
@@ -70,6 +74,8 @@ namespace Back_End
         endpoints.MapControllerRoute(
           name: "default",
           pattern: "{controller=Home}/{action=Index}/{id?}");
+
+        endpoints.MapRazorPages();
       });
     }
   }

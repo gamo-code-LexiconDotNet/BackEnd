@@ -38,6 +38,8 @@
               <li class="nav-item"><a class="nav-link" asp-controller="City" asp-action="Index">City</a></li>
               <li class="nav-item"><a class="nav-link" asp-controller="Country" asp-action="Index">Country</a></li>
               <li class="nav-item"><a class="nav-link" asp-controller="Language" asp-action="Index">Language</a></li>
+              <li class="nav-item"><a class="nav-link" asp-controller="Role" asp-action="Index">Role</a></li>
+              <li class="nav-item"><partial name="_LoginPartial" /></li>
             </ul>
           </div>
 
@@ -60,8 +62,22 @@
 
   </div>
 
+ @* @if (User.Identity.IsAuthenticated)
+  {
+    <table class="table table-sm">
+      @foreach (var claim in User.Claims)
+      {
+        <tr>
+          <td>@claim.Type</td>
+          <td>@claim.Value</td>
+        </tr>
+      }
+    </table>
+  }*@
+
   <script src="~/lib/bootstrap/js/bootstrap.min.js"></script>
   <script src="~/lib/jquery/jquery.min.js"></script>
   <script src="~/js/site.js" asp-append-version="true"></script>
 </body>
+@RenderSection("scripts", false)
 </html>
