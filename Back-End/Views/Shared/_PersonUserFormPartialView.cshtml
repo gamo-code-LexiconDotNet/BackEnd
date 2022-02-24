@@ -1,0 +1,45 @@
+﻿@model PersonViewModel
+
+<form asp-controller="Person" asp-action="Create">
+
+  <div class="row">
+
+    <div class="col-4 align-text-top">
+      <div class="input-group w-100">
+        <input asp-for="personCreateViewModel.Name" class="form-control" placeholder="Name" />
+        <div class="input-group-append">
+          <select asp-for="personCreateViewModel.Id" asp-items="Model.PersonList" class="form-select custom-select"></select>
+        </div>
+      </div>
+      <span asp-validation-for="personCreateViewModel.Name" class="text-danger fs-8"></span>
+      <span asp-validation-for="personCreateViewModel.Id" class="text-danger fs-8"></span>
+    </div>
+
+    <div class="col align-text-top">
+      <input asp-for="personCreateViewModel.PhoneNumber" class="form-control" placeholder="Phone Number" />
+      <span asp-validation-for="personCreateViewModel.PhoneNumber" class="text-danger fs-8"></span>
+    </div>
+
+    <div class="col align-text-top">
+      <div class="input-group w-100">
+        <select asp-for="personCreateViewModel.LanguageId" asp-items="Model.LanguageList" class="form-select custom-select"></select>
+      </div>
+      <span asp-validation-for="personCreateViewModel.LanguageId" class="text-danger fs-8"></span>
+    </div>
+
+    <div class="col align-text-top">
+      <div class="input-group w-100">
+        <select asp-for="personCreateViewModel.CityId" asp-items="Model.CityList" class="form-select custom-select"></select>
+      </div>
+      <span asp-validation-for="personCreateViewModel.CityId" class="text-danger fs-8"></span>
+    </div>
+
+    <div class="col-1 d-flex justify-content-center align-items-center">
+      <div class="">
+        <button type="submit" class="btn btn-secondary">Add</button>
+      </div>
+    </div>
+
+  </div>
+
+</form>

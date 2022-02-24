@@ -1,6 +1,7 @@
 ﻿using Back_End.Models.Entities;
 using Back_End.Models.Repositories;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,32 +16,49 @@ namespace Back_End.Models.Services
       this.cityRepository = cityRepository;
     }
 
-    public City Add(CityCreateViewModel cityCreateViewModel)
+    public City AddAndUpdate(CityCreateViewModel vm)
     {
-      if (cityCreateViewModel == null
-        || string.IsNullOrWhiteSpace(cityCreateViewModel.Name))
+      bool hasName = !string.IsNullOrEmpty(vm.Name);
+      bool hasId = vm.Id > 0;
+      bool hasCountryId = vm.CountryId > 0;
+
+      if (hasName && hasCountryId && hasName)
+        return UpdateCity(vm);
+
+      if (hasName && hasCountryId)
+        return CreateCity(vm);
+
+      if (hasId && (hasName || hasCountryId))
+        return UpdateCity(vm);
+
+      return null;
+    }
+
+    public City CreateCity(CityCreateViewModel vm)
+    {
+      City city = new City();
+      city.Name = vm.Name;
+
+      if (vm.CountryId > 0)
+        city.CountryId = vm.CountryId;
+
+      return cityRepository.Create(city);
+    }
+
+    public City UpdateCity(CityCreateViewModel vm)
+    {
+      City city = cityRepository.Read(vm.Id);
+
+      if (city == null)
         return null;
 
-      City newCity = new City
-      {
-        Name = cityCreateViewModel.Name
-      };
+      if (!string.IsNullOrEmpty(vm.Name))
+        city.Name = vm.Name;
 
-      if (!string.IsNullOrWhiteSpace(cityCreateViewModel.CountryName))
-      {
-        newCity.Country = new Country
-        {
-          Name = cityCreateViewModel.CountryName
-        };
-      }
-      else if (cityCreateViewModel.CountryId > 0)
-        newCity.CountryId = cityCreateViewModel.CountryId;
-      else
-        return null;
+      if (vm.CountryId > 0)
+        city.CountryId = vm.CountryId;
 
-      cityRepository.Create(newCity);
-
-      return newCity;
+      return cityRepository.Update(city);
     }
 
     public IEnumerable<City> All()
@@ -53,19 +71,14 @@ namespace Back_End.Models.Services
       return cityRepository.Delete(id);
     }
 
-    public City GetById(int id)
+    public List<SelectListItem> CityList
     {
-      return cityRepository.Read(id);
-    }
-
-    public bool CountryHasName(string name)
-    {
-      return cityRepository.Read().Where(c => c.Country.Name == name).Any();
-    }
-
-    public bool CountryHasId(int id)
-    {
-      return cityRepository.Read().Where(c => c.Country.Id == id).Any();
+      get
+      {
+        List<SelectListItem> list = new SelectList(All(), "Id", "Name").OrderBy(c => c.Text).ToList();
+        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose city" });
+        return list;
+      }
     }
   }
 }

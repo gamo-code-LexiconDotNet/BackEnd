@@ -10,7 +10,5 @@ namespace Back_End.Models.Repositories
     public Country Read(int id);
     public Country Update(Country country);
     public bool Delete(int id);
-    //public bool HasId(int id);
-    //public bool HasName(int id);
   }
 }

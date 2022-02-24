@@ -1,12 +1,11 @@
 ﻿using Back_End.Models.Services;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Back_End.Controllers
 {
+  [Authorize(Roles = "Admin")]
   public class LanguageController : Controller
   {
     private readonly ILanguageService languageService;
@@ -20,34 +19,14 @@ namespace Back_End.Controllers
       this.personService = personService;
     }
 
-    public List<SelectListItem> LanguageList
-    {
-      get 
-      {
-        List<SelectListItem> pl = new SelectList(languageService.All(), "Id", "Name").ToList();
-        pl.Insert(0, new SelectListItem { Value = "0", Text = "Choose language" });
-        return pl;
-      }
-    }
-
-    public List<SelectListItem> PersonList
-    {
-      get
-      {
-        List<SelectListItem> pl = new SelectList(personService.All(), "Id", "Name").ToList();
-        pl.Insert(0, new SelectListItem { Value = "0", Text = "Add person" });
-        return pl;
-      }
-    }
-
     [HttpGet]
     public IActionResult Index()
     {
       return View(new LanguageViewModel
       {
         Languages = languageService.All(),
-        LanguageList = LanguageList,
-        PersonList = PersonList
+        LanguageList = languageService.LanguageList,
+        PersonList = personService.PersonList
       });
     }
 
@@ -63,8 +42,8 @@ namespace Back_End.Controllers
       return View("Index", new LanguageViewModel
       {
         Languages = languageService.All(),
-        LanguageList = LanguageList,
-        PersonList = PersonList,
+        LanguageList = languageService.LanguageList,
+        PersonList = personService.PersonList,
         languageCreateViewModel = languageCreateViewModel
       });
     }

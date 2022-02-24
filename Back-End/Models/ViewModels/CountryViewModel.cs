@@ -10,6 +10,8 @@ namespace Back_End.Models.ViewModels
 
     public List<SelectListItem> CountryList { get; set; }
 
+    public List<SelectListItem> CityList { get; set; }
+
     public IEnumerable<Country> Countries { get; set; }
 
     public CountryCreateViewModel countryCreateViewModel;

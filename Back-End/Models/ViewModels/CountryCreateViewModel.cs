@@ -14,12 +14,15 @@ namespace Back_End.Models.ViewModels
 
     public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
     {
-      if (string.IsNullOrWhiteSpace(Name) && Id < 1)
+      bool hasName = !string.IsNullOrWhiteSpace(Name);
+      bool hasId = Id > 0;
+
+      if (!hasName && !hasId)
         yield return new ValidationResult(
-          "Country must have a name",
+          "Input a new country name or choose a country name in the list",
           new[] { nameof(Name) });
 
-      if (string.IsNullOrWhiteSpace(Name) && Id > 0)
+      if (!hasName && hasId)
         yield return new ValidationResult(
           "To edit a country name input a new name and choose the old name",
           new[] { nameof(Name) });

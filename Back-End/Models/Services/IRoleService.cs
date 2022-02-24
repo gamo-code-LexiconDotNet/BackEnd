@@ -10,7 +10,7 @@ namespace Back_End.Models.Services
     public IEnumerable<SelectListItem> UserList { get; }
     public IEnumerable<SelectListItem> RoleList { get; }
     public bool AddAndUpdate(RoleCreateViewModel wm);
-    public IEnumerable<UserRoles> AllRolesWithUsers();
+    public IEnumerable<RoleUserRoles> AllRolesWithUsers();
     public bool DeleteRole(string roleName);
     public bool RemoveRoleFromUser(string userId, string roleName);
 

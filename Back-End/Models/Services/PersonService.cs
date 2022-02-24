@@ -1,6 +1,7 @@
 using Back_End.Models.Entities;
 using Back_End.Models.Repositories;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,77 +17,90 @@ namespace Back_End.Models.Services
       this.personRepository = personRepository;
     }
 
-    public Person Add(PersonCreateViewModel pcvm)
+    public Person AddAndUpdate(PersonCreateViewModel vm)
     {
+      bool hasName = !string.IsNullOrEmpty(vm.Name);
+      bool hasId = vm.Id > 0;
+      bool hasPhoneNumber = !string.IsNullOrEmpty(vm.PhoneNumber);
+      bool hasCityName = !string.IsNullOrEmpty(vm.CityName);
+      bool hasCityId = vm.CityId > 0;
+      bool hasCountryName = !string.IsNullOrEmpty(vm.CountryName);
+      bool hasCountryId = vm.CountryId > 0;
+      bool hasLanguageName = !string.IsNullOrEmpty(vm.LanguageName);
+      bool hasLanguageId = vm.LanguageId > 0;
+
       Person person = new Person();
       bool update = false;
 
       // --- person ---
-      if (!string.IsNullOrWhiteSpace(pcvm.Name))
+      if (!hasId && !hasName)
+        return null;
+
+      if (hasId)
       {
-        person.Name = pcvm.Name;
-      }
-      else if (pcvm.Id > 0)
-      {
-        person = personRepository.Read(pcvm.Id);
+        person = personRepository.Read(vm.Id);
         update = true;
+
         if (person == null)
           return null;
       }
-      else
-        return null;
+
+      if (hasName)
+      {
+        person.Name = vm.Name;
+      }
 
       // --- phone ---
-      if (!update && string.IsNullOrWhiteSpace(pcvm.PhoneNumber))
+      if (!update && !hasPhoneNumber)
         return null;
 
-      if (!string.IsNullOrWhiteSpace(pcvm.PhoneNumber))
-        person.PhoneNumber = pcvm.PhoneNumber;
+      if (hasPhoneNumber)
+        person.PhoneNumber = vm.PhoneNumber;
 
       // --- city ---
       if (!update
-        && string.IsNullOrWhiteSpace(pcvm.CityName)
-        && pcvm.CityId < 1)
+        && !hasCityName
+        && !hasCityId)
         return null;
 
-      if (!update && !string.IsNullOrWhiteSpace(pcvm.CityName))
+      if (!update && hasCityName)
       {
         person.City = new City();
       }
 
-      if (!string.IsNullOrWhiteSpace(pcvm.CityName))
+      if (hasCityName)
       {
-        person.City.Name = pcvm.CityName;
+        person.City.Name = vm.CityName;
       }
-      else if (pcvm.CityId > 0)
+      else if (hasCityId)
       {
-        person.CityId = pcvm.CityId;
+        person.CityId = vm.CityId;
       }
 
       // --- country ---
-      if (!string.IsNullOrWhiteSpace(pcvm.CityName))
+      if (hasCityName)
       {
-        if (string.IsNullOrWhiteSpace(pcvm.CountryName)
-          && pcvm.CountryId < 1)
+        if (!hasCountryName
+          && !hasCountryId)
           return null;
 
-        if (!update && !string.IsNullOrWhiteSpace(pcvm.CountryName))
+        if (!update && hasCountryName)
         {
           person.City.Country = new Country();
         }
 
-        if (!string.IsNullOrWhiteSpace(pcvm.CountryName))
+        if (hasCountryName)
         {
-          person.City.Country.Name = pcvm.CountryName;
+          person.City.Country.Name = vm.CountryName;
         }
-        else if (pcvm.CountryId > 0)
+        else if (hasCountryId)
         {
-          person.City.CountryId = pcvm.CountryId;
+          person.City.CountryId = vm.CountryId;
         }
       }
 
-      // language
-      if (!string.IsNullOrWhiteSpace(pcvm.LanguageName))
+      // --- language ---
+      if (hasLanguageName)
       {
         if (!update)
         {
@@ -97,15 +111,18 @@ namespace Back_End.Models.Services
         {
           Langauge = new Language
           {
-            Name= pcvm.LanguageName
+            Name = vm.LanguageName
           }
         });
       }
-      else if (pcvm.LanguageId > 0)
+      else if (hasLanguageId)
       {
+        if (person.PeopleLanguages == null)
+          person.PeopleLanguages = new List<PersonLanguage>();
+
         person.PeopleLanguages.Add(new PersonLanguage
         {
-          LanguageId = pcvm.LanguageId
+          LanguageId = vm.LanguageId
         });
       }
 
@@ -113,6 +130,22 @@ namespace Back_End.Models.Services
         return personRepository.Update(person);
       else
         return personRepository.Create(person);
+    }
+
+    public bool AddLanguage(ref Person person, PersonCreateViewModel vm)
+    {
+      if (vm == null
+        || person == null
+        || string.IsNullOrEmpty(vm.LanguageName))
+        return false;
+
+      person.PeopleLanguages.Add(
+        new PersonLanguage
+        {
+          Langauge = new Language { Name = vm.LanguageName }
+        });
+
+      return true;
     }
 
     public IEnumerable<Person> All()
@@ -179,6 +212,16 @@ namespace Back_End.Models.Services
       personRepository.Update(person);
 
       return true;
+    }
+
+    public List<SelectListItem> PersonList
+    {
+      get
+      {
+        List<SelectListItem> list = new SelectList(All(), "Id", "Name").OrderBy(c => c.Text).ToList();
+        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose person" });
+        return list;
+      }
     }
   }
 }

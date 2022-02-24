@@ -1,9 +1,11 @@
 ﻿using Back_End.Models.Entities;
 using Back_End.Models.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Back_End.Controllers
 {
+  [Authorize(Roles = "Admin")]
   public class AjaxController : Controller
   {
     private readonly IPersonService personService;

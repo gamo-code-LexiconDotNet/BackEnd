@@ -1,11 +1,18 @@
 using Back_End.Models.Entities;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace Back_End.Models.Services
 {
   public interface IPersonService
   {
+    /// <summary>
+    /// Returns a selectlist of people
+    /// </summary>
+    /// <returns>Selectlist of person ids and names</returns>
+    List<SelectListItem> PersonList { get; }
+
     /// <summary>
     /// Returns list of all people
     /// </summary>
@@ -17,7 +24,7 @@ namespace Back_End.Models.Services
     /// </summary>
     /// <param name="personCreateVM">Create view model of Person to be added</param>
     /// <returns>Returns added Person or null if it fails</returns>
-    public Person Add(PersonCreateViewModel personCreateVM);
+    public Person AddAndUpdate(PersonCreateViewModel personCreateVM);
 
     /// <summary>
     /// Delete Person with provided Id

@@ -1,6 +1,7 @@
 ﻿using Back_End.Models.Entities;
 using Back_End.Models.Repositories;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -123,6 +124,16 @@ namespace Back_End.Models.Services
       languageRepository.Update(language);
 
       return true;
+    }
+
+    public List<SelectListItem> LanguageList
+    {
+      get
+      {
+        List<SelectListItem> list = new SelectList(All(), "Id", "Name").OrderBy(i => i.Text).ToList();
+        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose language" });
+        return list;
+      }
     }
   }
 }

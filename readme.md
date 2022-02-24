@@ -56,5 +56,11 @@ Specification: [3 - Many to many.pdf](3%20-%20Many%20to%20many.pdf)
 
 Branch: [ef-assignment-3](https://github.com/gamo-code-LexiconDotNet/Backend/tree/ef-assignment-3)
 
+#### Identity Assignment
+
+Specification: [ASP.NET Identity, Assignment - Identity and CMS.pdf](ASP.NET%20Identity,%20Assignment%20-%20Identity%20and%20CMS.pdf)
+
+Branch: [identity-assignment](https://github.com/gamo-code-LexiconDotNet/Backend/tree/identity-assignment)
+
 ---
 Lexicon C#/.NET Programming Course

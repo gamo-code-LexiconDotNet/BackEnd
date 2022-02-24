@@ -18,11 +18,11 @@ namespace Back_End.Models.Services
       this.userManager = userManager;
     }
 
-    public IEnumerable<UserRoles> AllRolesWithUsers()
+    public IEnumerable<RoleUserRoles> AllRolesWithUsers()
     {
-      return new List<UserRoles>(
+      return new List<RoleUserRoles>(
         roleManager.Roles.Select(r =>
-          new UserRoles
+          new RoleUserRoles
           {
             Role = r.Name,
             Users = userManager.GetUsersInRoleAsync(r.Name).Result

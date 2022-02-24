@@ -47,23 +47,20 @@
   border-bottom: 2px solid #212529;
 }
 
-.person-table-ajax > * :not(#content) > * {
-  padding: 0.5rem 0.5rem;
-  border-bottom: 1px solid #dee2e6;
-}
-
 .person-table-ajax > :first-child {
   border-bottom: 2px solid #212529;
   border-top: 2px solid #212529;
   font-weight: 700;
-}
-
-.person-table-ajax > :first-child > * {
   padding: 0.5rem 0.5rem;
 }
 
 .person-table-ajax > :last-child {
   border-bottom: 2px solid #212529;
+}
+
+.person-table-ajax > .row :first-child > .row {
+  padding: 0.5rem 0.5rem;
+  border-bottom: 1px solid #dee2e6;
 }
 
 .custom-select {

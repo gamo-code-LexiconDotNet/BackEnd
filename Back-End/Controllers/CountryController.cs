@@ -1,19 +1,21 @@
 ﻿using Back_End.Models.Services;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Back_End.Controllers
 {
+  [Authorize(Roles = "Admin")]
   public class CountryController : Controller
   {
     private readonly ICountryService countryService;
+    private readonly ICityService cityService;
 
-    public CountryController(ICountryService countryService)
+    public CountryController(ICountryService countryService,
+      ICityService cityService)
     {
       this.countryService = countryService;
+      this.cityService = cityService;
     }
 
     [HttpGet]
@@ -22,7 +24,8 @@ namespace Back_End.Controllers
       return View(new CountryViewModel
       {
         Countries = countryService.All(),
-        CountryList = CountryList
+        CountryList = countryService.CountryList,
+        CityList = cityService.CityList
       });
     }
 
@@ -39,7 +42,8 @@ namespace Back_End.Controllers
       {
         Countries = countryService.All(),
         countryCreateViewModel = countryCreateViewModel,
-        CountryList = CountryList
+        CountryList = countryService.CountryList,
+        CityList = cityService.CityList
       });
     }
 
@@ -59,16 +63,6 @@ namespace Back_End.Controllers
         return RedirectToAction("Index");
 
       return RedirectToAction("Index"); // fix on fail
-    }
-
-    public List<SelectListItem> CountryList
-    {
-      get
-      {
-        List<SelectListItem> pl = new SelectList(countryService.All(), "Id", "Name").ToList();
-        pl.Insert(0, new SelectListItem { Value = "0", Text = "Choose Country" });
-        return pl;
-      }
     }
   }
 }

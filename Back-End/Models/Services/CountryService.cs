@@ -1,6 +1,7 @@
 ﻿using Back_End.Models.Entities;
 using Back_End.Models.Repositories;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,13 +16,13 @@ namespace Back_End.Models.Services
       this.countryRepository = countryRepository;
     }
 
-    public Country AddOrUpdate(CountryCreateViewModel viewModel)
+    public Country AddOrUpdate(CountryCreateViewModel vm)
     {
-      if (!string.IsNullOrWhiteSpace(viewModel.Name)
-        && viewModel.Id > 0)
-        return Update(viewModel);
+      if (!string.IsNullOrWhiteSpace(vm.Name)
+        && vm.Id > 0)
+        return Update(vm);
 
-      return Add(viewModel);
+      return Add(vm);
     }
 
     public bool RemoveCity(int countryId, int cityId)
@@ -78,6 +79,16 @@ namespace Back_End.Models.Services
     public bool Delete(int id)
     {
       return countryRepository.Delete(id);
+    }
+
+    public List<SelectListItem> CountryList
+    {
+      get
+      {
+        List<SelectListItem> pl = new SelectList(All(), "Id", "Name").OrderBy(i => i.Text).ToList();
+        pl.Insert(0, new SelectListItem { Value = "0", Text = "Choose Country" });
+        return pl;
+      }
     }
   }
 }

@@ -1,17 +1,20 @@
 ﻿using Back_End.Models.Entities;
 using Back_End.Models.Services;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Back_End.Controllers
 {
+  [Authorize(Roles = "Admin")]
   public class CityController : Controller
   {
     private readonly ICityService cityService;
     private readonly ICountryService countryService;
 
-    public CityController(ICityService cityService, ICountryService countryService)
+    public CityController(ICityService cityService,
+      ICountryService countryService)
     {
       this.cityService = cityService;
       this.countryService = countryService;
@@ -23,7 +26,8 @@ namespace Back_End.Controllers
       return View(new CityViewModel
       {
         Cities = cityService.All(),
-        Countries = new SelectList(countryService.All(), "Id", "Name")
+        CountryList = countryService.CountryList,
+        CityList = cityService.CityList
       });
     }
 
@@ -32,14 +36,15 @@ namespace Back_End.Controllers
     {
       if (ModelState.IsValid)
       {
-        cityService.Add(cityCreateViewModel);
+        cityService.AddAndUpdate(cityCreateViewModel);
         return RedirectToAction("Index");
       }
 
       return View("Index", new CityViewModel
       {
         Cities = cityService.All(),
-        Countries = new SelectList(countryService.All(), "Id", "Name"),
+        CountryList = countryService.CountryList,
+        CityList = cityService.CityList,
         cityCreateViewModel = cityCreateViewModel
       });
     }

@@ -1,14 +1,12 @@
-﻿using Back_End.Models.Entities;
-using Back_End.Models.Services;
+﻿using Back_End.Models.Services;
 using Back_End.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Linq;
 using static Back_End.Models.Services.PersonSessionService;
 
 namespace Back_End.Controllers
 {
+  [Authorize]
   public class PersonController : Controller
   {
     private readonly IPersonService personService;
@@ -37,10 +35,10 @@ namespace Back_End.Controllers
         NameSortParam = "name_desc",
         CitySortParam = "city_desc",
         CountrySortParam = "coutry_desc",
-        CityList = CityList,
-        CountryList = CountryList,
-        LanguageList = LanguageList,
-        NameList = PersonList,
+        CityList = cityService.CityList,
+        CountryList = countryService.CountryList,
+        LanguageList = languageService.LanguageList,
+        PersonList = personService.PersonList
       });
     }
 
@@ -63,9 +61,9 @@ namespace Back_End.Controllers
         CountrySortParamInSession = SortOrderInSesson == "country" ? "country_desc" : "country";
       }
       else
-        SortOrderInSesson = "";
+        SortOrderInSesson = "name";
 
-      // need to reset model state values or the old values will be passed through model binding
+      // need to reset model state values or the old values will be passed through with model binding
       ModelState.Remove("NameSortParam");
       ModelState.Remove("CitySortParam");
       ModelState.Remove("CountrySortParam");
@@ -84,9 +82,10 @@ namespace Back_End.Controllers
         NameSortParam = NameSortParamInSession,
         CitySortParam = CitySortParamInSession,
         CountrySortParam = CountrySortParamInSession,
-        CityList = CityList,
-        CountryList = CountryList,
-        NameList = PersonList,
+        CityList = cityService.CityList,
+        CountryList = countryService.CountryList,
+        LanguageList = languageService.LanguageList,
+        PersonList = personService.PersonList
       });
     }
 
@@ -95,7 +94,16 @@ namespace Back_End.Controllers
     {
       if (ModelState.IsValid)
       {
-        personService.Add(personCreateViewModel);
+        // model data injection protection
+        if(!User.IsInRole("Admin"))
+        {
+          personCreateViewModel.CityName = "";
+          personCreateViewModel.CountryName = "";
+          personCreateViewModel.CountryId = 0;
+          personCreateViewModel.LanguageName = "";
+        }
+
+        personService.AddAndUpdate(personCreateViewModel);
         return RedirectToAction("Index");
       }
 
@@ -110,9 +118,10 @@ namespace Back_End.Controllers
         NameSortParam = NameSortParamInSession,
         CitySortParam = CitySortParamInSession,
         CountrySortParam = CountrySortParamInSession,
-        CityList = CityList,
-        CountryList = CountryList,
-        NameList = PersonList,
+        CityList = cityService.CityList,
+        CountryList = countryService.CountryList,
+        LanguageList = languageService.LanguageList,
+        PersonList = personService.PersonList,
         personCreateViewModel = personCreateViewModel
       });
     }
@@ -133,48 +142,6 @@ namespace Back_End.Controllers
         return RedirectToAction("Index");
 
       return RedirectToAction("Index"); // fix on fail
-    }
-
-    //
-    // select lists
-    //
-    public List<SelectListItem> LanguageList
-    {
-      get
-      {
-        List<SelectListItem> list = new SelectList(languageService.All(), "Id", "Name").ToList();
-        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose language" });
-        return list;
-      }
-    }
-
-    public List<SelectListItem> PersonList
-    {
-      get
-      {
-        List<SelectListItem> list = new SelectList(personService.All(), "Id", "Name").ToList();
-        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose person" });
-        return list;
-      }
-    }
-
-    public List<SelectListItem> CityList
-    {
-      get
-      {
-        List<SelectListItem> list = new SelectList(cityService.All(), "Id", "Name").ToList();
-        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose city" });
-        return list;
-      }
-    }
-    public List<SelectListItem> CountryList
-    {
-      get
-      {
-        List<SelectListItem> list = new SelectList(countryService.All(), "Id", "Name").ToList();
-        list.Insert(0, new SelectListItem { Value = "0", Text = "Choose country" });
-        return list;
-      }
     }
   }
 }

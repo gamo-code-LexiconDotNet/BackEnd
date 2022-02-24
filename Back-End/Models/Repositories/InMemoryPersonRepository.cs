@@ -13,34 +13,34 @@ namespace Back_End.Models.Repositories
     {
       people = new List<Person>()
       {
-        //new Person
-        //{
-        //  Id = 1,
-        //  Name = "Alice",
-        //  PhoneNumber = "1234567890",
-        //  City = "Amsterdam"
-        //},
-        //new Person
-        //{
-        //  Id = 2,
-        //  Name = "Bob",
-        //  PhoneNumber = "2345679801",
-        //  City = "Berlin"
-        //},
-        //new Person
-        //{
-        //  Id = 3,
-        //  Name = "Carol",
-        //  PhoneNumber = "3456789012",
-        //  City = "Copenhagen"
-        //},
-        //new Person
-        //{
-        //  Id = 4,
-        //  Name = "Dan",
-        //  PhoneNumber = "4567890123",
-        //  City = "Dublin"
-        //}
+        new Person
+        {
+          Id = 1,
+          Name = "Alice",
+          PhoneNumber = "1234567890",
+          City = new City()
+        },
+        new Person
+        {
+          Id = 2,
+          Name = "Bob",
+          PhoneNumber = "2345679801",
+          City = new City()
+        },
+        new Person
+        {
+          Id = 3,
+          Name = "Carol",
+          PhoneNumber = "3456789012",
+          City = new City()
+        },
+        new Person
+        {
+          Id = 4,
+          Name = "Dan",
+          PhoneNumber = "4567890123",
+          City = new City()
+        }
       };
     }
 
