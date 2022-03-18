@@ -16,18 +16,21 @@ namespace BackEnd.Models.Dto
       {
         Id = city.Id,
         Name = city.Name,
-        Country = city.Country.Name,
-        CountryId = city.Country.Id
+        CountryId = city.Country.Id,
+        Country = city.Country.Name
       };
     }
 
     [JsonProperty("id")]
     public int Id { get; set; }
+
     [JsonProperty("name")]
     public string Name { get; set; }
-    [JsonProperty("country_id")]
+
+    [JsonProperty("countryid")]
     public int CountryId { get; set; }
-    [JsonProperty("country_name")]
+
+    [JsonProperty("countryname")]
     public string Country { get; set; }
   }
 }

@@ -7,5 +7,6 @@ namespace BackEnd.Models.Services.Api
   {
     public IEnumerable<LanguageDto> AllLanguages();
     public LanguageDto GetLanguage(int id);
+    public IEnumerable<object> LanguageList();
   }
 }

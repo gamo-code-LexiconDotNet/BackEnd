@@ -19,7 +19,7 @@ namespace BackEnd.Models.Dto
         Name = person.Name,
         PhoneNumber = person.PhoneNumber,
         City = CityDto.Create(person.City),
-        Languages = person.PeopleLanguages.Select(pl => pl.Langauge.Name).ToArray()
+        Languages = person.PeopleLanguages.Select(pl => PersonLanguageDto.Create(pl.Langauge)).ToArray()
       };
     }
 
@@ -32,6 +32,6 @@ namespace BackEnd.Models.Dto
     [JsonProperty("city")]
     public CityDto City { get; set; }
     [JsonProperty("languages")]
-    public string[] Languages { get; set; }
+    public PersonLanguageDto[] Languages { get; set; }
   }
 }

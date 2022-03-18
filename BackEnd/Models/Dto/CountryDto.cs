@@ -18,7 +18,7 @@ namespace BackEnd.Models.Dto
       {
         Id = country.Id,
         Name = country.Name,
-        Cities = country.Cities.Select(city => CityDto.Create(city))
+        Cities = country.Cities.Select(city => CityDto.Create(city)).ToArray()
       };
     }
 
@@ -26,7 +26,7 @@ namespace BackEnd.Models.Dto
     public int Id { get; set; }
     [JsonProperty("name")]
     public string Name { get; set; }
-    [JsonProperty("countries")]
-    public IEnumerable<CityDto> Cities { get; set; }
+    [JsonProperty("cities")]
+    public CityDto[] Cities { get; set; }
   }
 }

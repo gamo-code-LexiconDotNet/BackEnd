@@ -28,5 +28,12 @@ namespace BackEnd.Models.Services.Api
     {
       return PersonDto.Create(personRepository.Read(id));
     }
+
+    public IEnumerable<object> PersonList()
+    {
+      return from person in personRepository.Read()
+             orderby person.Name
+             select new { id = person.Id, name = person.Name };
+    }
   }
 }

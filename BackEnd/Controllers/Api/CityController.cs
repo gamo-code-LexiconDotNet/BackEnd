@@ -1,6 +1,7 @@
 ﻿using BackEnd.Models.Services.Api;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace BackEnd.Controllers.Api
 {
@@ -23,7 +24,7 @@ namespace BackEnd.Controllers.Api
       if (cities == null)
         return NotFound();
 
-      return Ok(cities);
+      return Ok(JsonConvert.SerializeObject(cities));
     }
 
     [HttpGet("{id}")]
@@ -34,7 +35,7 @@ namespace BackEnd.Controllers.Api
       if (city == null)
         return NotFound();
 
-      return Ok(city);
+      return Ok(JsonConvert.SerializeObject(city));
     }
   }
 }

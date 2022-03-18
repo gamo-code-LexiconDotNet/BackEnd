@@ -1,6 +1,5 @@
 ﻿using BackEnd.Models.Entities;
 using Newtonsoft.Json;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BackEnd.Models.Dto
@@ -18,7 +17,7 @@ namespace BackEnd.Models.Dto
       {
         Id = language.Id,
         Name = language.Name,
-        Persons = language.PeopleLanguages.Select(pl => LanguagePersonDto.Create(pl.Person))
+        Persons = language.PeopleLanguages.Select(pl => LanguagePersonDto.Create(pl.Person)).ToArray()
       };
     }
 
@@ -27,6 +26,6 @@ namespace BackEnd.Models.Dto
     [JsonProperty("name")]
     public string Name { get; set; }
     [JsonProperty("persons")]
-    public IEnumerable<LanguagePersonDto> Persons { get; set; }
+    public LanguagePersonDto[] Persons { get; set; }
   }
 }

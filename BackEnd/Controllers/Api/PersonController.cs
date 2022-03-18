@@ -1,5 +1,7 @@
 ﻿using BackEnd.Models.Services.Api;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Linq;
 
 namespace BackEnd.Controllers.Api
 {
@@ -22,7 +24,7 @@ namespace BackEnd.Controllers.Api
       if (persons == null)
         return NotFound();
 
-      return Ok(persons);
+      return Ok(JsonConvert.SerializeObject(persons));
     }
 
     [HttpGet("{id}")]
@@ -33,7 +35,18 @@ namespace BackEnd.Controllers.Api
       if (person == null)
         return NotFound();
 
-      return Ok(person);
+      return Ok(JsonConvert.SerializeObject(person));
+    }
+
+    [HttpGet("list")]
+    public ActionResult<string> PersonList()
+    {
+      var personList = personService.PersonList();
+
+      if (personList == null)
+        return NotFound();
+
+      return Ok(JsonConvert.SerializeObject(personList));
     }
   }
 }

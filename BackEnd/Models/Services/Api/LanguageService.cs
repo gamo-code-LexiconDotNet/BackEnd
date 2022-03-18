@@ -28,5 +28,17 @@ namespace BackEnd.Models.Services.Api
     {
       return LanguageDto.Create(languageRepository.Read(id));
     }
+
+    public IEnumerable<object> LanguageList()
+    {
+      var languages = languageRepository.Read();
+
+      if (languages == null)
+        return null;
+
+      return from language in languages
+             orderby language.Name
+             select new { id = language.Id, name = language.Name };
+    }
   }
 }

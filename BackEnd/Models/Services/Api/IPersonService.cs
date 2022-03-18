@@ -7,5 +7,6 @@ namespace BackEnd.Models.Services.Api
   {
     public IEnumerable<PersonDto> AllPersons();
     public PersonDto GetPerson(int id);
+    public IEnumerable<object> PersonList();
   }
 }

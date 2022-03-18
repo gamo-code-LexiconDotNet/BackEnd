@@ -1,6 +1,10 @@
-﻿using BackEnd.Models.Services.Api;
+﻿using BackEnd.Models.Dto;
+using BackEnd.Models.Services.Api;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BackEnd.Controllers.Api
 {
@@ -23,7 +27,18 @@ namespace BackEnd.Controllers.Api
       if (languages == null)
         return NotFound();
 
-      return Ok(languages);
+      return Ok(JsonConvert.SerializeObject(languages));
+    }
+
+    [HttpGet("list")]
+    public ActionResult<string> LanguagesList()
+    {
+      var languagelist = languageService.LanguageList();
+
+      if (languagelist == null)
+        return NotFound();
+
+      return Ok(JsonConvert.SerializeObject(languagelist));
     }
 
     [HttpGet("{id}")]
@@ -34,7 +49,7 @@ namespace BackEnd.Controllers.Api
       if (language == null)
         return NotFound();
 
-      return Ok(language);
+      return Ok(JsonConvert.SerializeObject(language));
     }
   }
 }
