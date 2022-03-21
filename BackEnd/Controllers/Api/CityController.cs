@@ -37,5 +37,16 @@ namespace BackEnd.Controllers.Api
 
       return Ok(JsonConvert.SerializeObject(city));
     }
+
+    [HttpGet("list")]
+    public ActionResult<string> CitiesList()
+    {
+      var citiesList = cityService.CitiesList();
+
+      if (citiesList == null)
+        return NotFound();
+
+      return Ok(JsonConvert.SerializeObject(citiesList));
+    }
   }
 }

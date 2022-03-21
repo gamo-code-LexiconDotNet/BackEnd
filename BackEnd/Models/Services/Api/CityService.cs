@@ -29,5 +29,17 @@ namespace BackEnd.Models.Services.Api
     {
       return CityDto.Create(cityRepository.Read(id));
     }
+
+    public IEnumerable<object> CitiesList()
+    {
+      var cities = cityRepository.Read();
+
+      if (cities == null)
+        return null;
+
+      return from city in cities
+             orderby city.Name
+             select new { id = city.Id, name = city.Name };
+    }
   }
 }

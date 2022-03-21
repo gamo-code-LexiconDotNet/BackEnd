@@ -1,11 +1,13 @@
+import Container from "react-bootstrap/Container";
+
 import MainNavigation from "./MainNavigation";
 
 function Layout(props) {
   return (
-    <div>
+    <Container>
       <MainNavigation />
       <main>{props.children}</main>
-    </div>
+    </Container>
   );
 }
 

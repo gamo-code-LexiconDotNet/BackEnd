@@ -1,14 +1,12 @@
-﻿const { createProxyMiddleware } = require('http-proxy-middleware');
+﻿const { createProxyMiddleware } = require("http-proxy-middleware");
 
-const context = [
-    "/api",
-];
+const context = ["/api"];
 
 module.exports = function (app) {
-    const appProxy = createProxyMiddleware(context, {
-        target: 'https://localhost:44323',
-        secure: false
-    });
+  const appProxy = createProxyMiddleware(context, {
+    target: "https://localhost:44323",
+    secure: false,
+  });
 
-    app.use(appProxy);
+  app.use(appProxy);
 };

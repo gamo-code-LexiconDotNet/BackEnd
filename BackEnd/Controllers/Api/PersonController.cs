@@ -1,4 +1,5 @@
-﻿using BackEnd.Models.Services.Api;
+﻿using BackEnd.Models.Dto;
+using BackEnd.Models.Services.Api;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Linq;
@@ -47,6 +48,29 @@ namespace BackEnd.Controllers.Api
         return NotFound();
 
       return Ok(JsonConvert.SerializeObject(personList));
+    }
+
+    [HttpPost]
+    public ActionResult<string> AddPerson(object createPerson)
+    {
+      var createPersonDto = JsonConvert.DeserializeObject<PersonCreateDto>(createPerson.ToString());
+
+      var newPerson = personService.AddPerson(createPersonDto);
+
+      if (newPerson == null)
+        return NotFound();
+      return Ok();
+    }
+
+    [HttpDelete("{id}")]
+    public ActionResult<string> RemovePerson(int id)
+    {
+      var success = personService.RemovePerson(id);
+
+      if (!success)
+        return NotFound();
+
+      return Ok();
     }
   }
 }

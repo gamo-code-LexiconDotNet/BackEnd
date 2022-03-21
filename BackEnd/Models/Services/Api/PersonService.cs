@@ -35,5 +35,19 @@ namespace BackEnd.Models.Services.Api
              orderby person.Name
              select new { id = person.Id, name = person.Name };
     }
+
+    public PersonDto AddPerson(PersonCreateDto personCreateDto)
+    {
+      var person = personCreateDto.ToEntity();
+
+      var newPerson = personRepository.Create(person);
+
+      return PersonDto.Create(newPerson);
+    }
+
+    public bool RemovePerson(int id)
+    {
+      return personRepository.Delete(id);
+    }
   }
 }

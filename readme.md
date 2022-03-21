@@ -62,5 +62,11 @@ Specification: [ASP.NET Identity, Assignment - Identity and CMS.pdf](ASP.NET%20I
 
 Branch: [identity-assignment](https://github.com/gamo-code-LexiconDotNet/Backend/tree/identity-assignment)
 
+#### React Assignment
+
+Specification: [React Assignment - Single-Page CMS.pdf](React%20Assignment%20-%20Single-Page%20CMS.pdf)
+
+Branch: [react-assignment](https://github.com/gamo-code-LexiconDotNet/Backend/tree/react-assignment)
+
 ---
 Lexicon C#/.NET Programming Course

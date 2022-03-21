@@ -1,30 +1,41 @@
 import { Link } from "react-router-dom";
+import { Container, Nav, Navbar } from "react-bootstrap";
 
 function MainNavigation() {
   return (
     <header>
-      <div>
-        <h1>People, Languages, Cities and Countries</h1>
-      </div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/people">People</Link>
-          </li>
-          <li>
-            <Link to="/languages">Languages</Link>
-          </li>
-          <li>
-            <Link to="/cities">Cities</Link>
-          </li>
-          <li>
-            <Link to="/countries">Countries</Link>
-          </li>
-        </ul>
-      </nav>
+      <Navbar>
+        <Container>
+          <Navbar.Brand as={Link} to="/">
+            MVC FrontEnd
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="navbar" />
+          <Navbar.Collapse id="navbar" className="justify-content-end">
+            <Nav>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/people">
+                  People
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/languages">
+                  Languages
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/cities">
+                  Cities
+                </Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link as={Link} to="/countries">
+                  Countries
+                </Nav.Link>
+              </Nav.Item>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
     </header>
   );
 }
